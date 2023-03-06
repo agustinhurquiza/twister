@@ -26,7 +26,6 @@ class WSymbol():
 
         self.parser_condition_codes(codes)
 
-
     def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> None:
         if not os.path.isfile(codes_file):
             warnings.warn('Condition codes doesn\'t found.')
@@ -36,12 +35,11 @@ class WSymbol():
         codes = doc['codes']['condition']
 
         for code in codes:
-            self.codes_dict[int(code['code'])] = {'description' : code['description'],
-                                                  'day_icon'    : code['day_icon'],
-                                                  'night_icon'  : code['night_icon']}
+            self.codes_dict[int(code['code'])] = {'description': code['description'],
+                                                  'day_icon': code['day_icon'],
+                                                  'night_icon': code['night_icon']}
 
-
-    def get_symbol_path_from_code(self, code:int , is_day:bool) -> str:
+    def get_symbol_path_from_code(self, code: int, is_day: bool) -> str:
         for cc, value in self.codes_dict.items():
             if cc == code:
                 if is_day:
@@ -52,8 +50,7 @@ class WSymbol():
         warnings.warn('Code unknown: ' + str(code))
         return self.get_abs_path() + '/' + 'unknown' + WSYMBOL_EXTENSION
 
-
-    def get_symbol_temp_from_code(self, tmp:int) -> str:
+    def get_symbol_temp_from_code(self, tmp: int) -> str:
         if tmp > 30:
             return self.get_abs_path() + '/' + 'hot' + WSYMBOL_EXTENSION
         elif tmp < 10:
@@ -61,16 +58,13 @@ class WSymbol():
         else:
             return self.get_abs_path() + '/' + 'cool' + WSYMBOL_EXTENSION
 
-
-    def set_path(self, path:str) -> None:
+    def set_path(self, path: str) -> None:
         if not os.path.isdir(path):
             warnings.warn('Backgorund doesn\'t found.')
         self.__path__ = path
 
-
     def get_abs_path(self) -> str:
         return os.path.abspath(self.__path__)
-
 
     def get_size(self) -> Union[int, int]:
         return (WSYMBOL_WIDTH, WSYMBOL_HIGHT)
