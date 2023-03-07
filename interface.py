@@ -5,18 +5,18 @@ from background import Background
 from wsymbol import WSymbol
 
 '''
-    Consts
-    ------
-    The path of the default font.
+    Constants
+    ---------
+        The path of the default font.
 '''
 INTERFACE_DEFAULT_FONT = 'src/Ubuntu-Regular_1.ttf'
 if not os.path.isfile(INTERFACE_DEFAULT_FONT):
-    warnings.warn('Default font doesn\'t found.')
+    warnings.warn('Default font not found.')
 
 '''
-    Consts
-    ------
-    That are use for match the wheater with background imagen.
+    Constants
+    ---------
+        Used to match the weather with the background image.
 '''
 INTERFACE_SNOW_CODES = [371, 368, 338, 335, 332, 329, 326, 323, 230, 179, 227]
 INTERFACE_THUNDER_CODES = [395, 392, 389, 200, 386]
@@ -29,58 +29,57 @@ INTERFACE_FOG_CODES = [260, 248]
 
 class Interface():
     '''
-    A class use for make imagen using pixie.
+    A class used for making an image using Pixie.
 
     Attributes
     ----------
-    response : dict
-        Response obtained from the API, format:
-            response =  {'country': str,
-                         'region': str,
-                         'temperature': int,
-                         'weather_code': int,
-                         'weather_descriptions': [str],
-                         'wind_speed': int,
-                         'wind_degree': int,
-                         'wind_dir': str,
-                         'pressure': int,
-                         'precip': int,
-                         'humidity': int,
-                         'cloudcover': int,
-                         'feelslike': int,
-                         'uv_index': int,
-                         'visibility': int,
-                         'is_day': bool
-                        }.
-    font : pixie.Font
-        The font used in the image, default 'Ubuntu-Regular_1.ttf'.
-    background : Background
-        Have de info about the background imagen.
-    wsymbol : WSymbol
-        Have the info about the icons use in the imagen.
-    width : int
-        Width of the imagen.
-    hight : int
-        Hight of the imagen.
-    image : pixie.Image
-        The image it edited.
+        response : dict
+            The response obtained from the API. The format is:
+                response = {'country': str,
+                            'region': str,
+                            'temperature': int,
+                            'weather_code': int,
+                            'weather_descriptions': [str],
+                            'wind_speed': int,
+                            'wind_degree': int,
+                            'wind_dir': str,
+                            'pressure': int,
+                            'precip': int,
+                            'humidity': int,
+                            'cloudcover': int,
+                            'feelslike': int,
+                            'uv_index': int,
+                            'visibility': int,
+                            'is_day': bool}.
+        font : pixie.Font
+            The font used in the image, default is 'Ubuntu-Regular_1.ttf'.
+        background : Background
+            Contains information about the background image.
+        wsymbol : WSymbol
+            Contains information about the icons used in the image.
+        width : int
+            The width of the image.
+        height : int
+            The height of the image.
+        image : pixie.Image
+            The edited image.
 
     Methods
     -------
-    set_background() -> None:
-        Set the background imagen.
+        set_background() -> None:
+            Sets the background image.
 
-    set_font(font_path: str) -> None:
-        Set a diferent font using in the imagen.
+        set_font(font_path: str) -> None:
+            Sets a different font to use in the image.
 
-    make_font(size: int) -> pixie.Font:
-        Edit the font for the diferent text in the imagen.
+        make_font(size: int) -> pixie.Font:
+            Edits the font for the different text in the image.
 
-    make_imagen() -> None:
-        Draw the diferent parts of the final picture.
+        make_image() -> None:
+            Draws the different parts of the final picture.
 
-    save_imagen(path) -> None:
-        Save the imagen in the especific path.
+        save_image(path) -> None:
+            Saves the image in the specified path.
     '''
 
     def __init__(self, response: dict, font=INTERFACE_DEFAULT_FONT) -> None:
@@ -89,32 +88,36 @@ class Interface():
 
         Parameters
         ----------
-            response : str
+            response : dict
                 Response obtained from the API, format:
+                    {
+                        'temperature': float,
+                        'region': str,
+                        'country': str,
+                        'is_day': bool,
+                        'weather_code': int,
+                        'weather_descriptions': list[str],
+                        'wind_speed': float,
+                        'wind_degree': int,
+                        'wind_dir': str,
+                        'pressure': float,
+                        'precipitation': float,
+                    }
             font : str
                 The font used in the image, default 'Ubuntu-Regular_1.ttf'.
-        Returns
-        -------
-            None
         '''
         self.response = response
         self.font = pixie.read_typeface(font)
         self.background = None
         self.wsymbol = WSymbol()
         self.width = 0
-        self.hight = 0
+        self.height = 0
         self.image = None
 
     def set_background(self) -> None:
         '''
-        Set the background imagen.
+        Set the background image.
 
-        Parameters
-        ----------
-            None
-        Returns
-        -------
-            None
         '''
         if self.response['weather_code'] in INTERFACE_SNOW_CODES:
             self.background = Background.BACKGROUND_SNOW
@@ -135,44 +138,40 @@ class Interface():
         elif self.response['weather_code'] in INTERFACE_FOG_CODES:
             self.background = Background.BACKGROUND_FOG
         else:
-            warnings.warn('Background unknown, the code: ' +
+            warnings.warn('Unknown background, the code: ' +
                           str(self.response['weather_code']) +
-                          ' doesn\'t found')
+                          ' was not found')
             self.background = Background.BACKGROUND_UNKNOWN
 
-        (self.width, self.hight) = self.background.get_size()
+        self.width, self.height = self.background.get_size()
         self.image = pixie.read_image(self.background.get_image_path())
 
     def set_font(self, font_path: str) -> None:
         '''
-        Set a diferent font using in the imagen.
+        Set a different font used in the image.
 
         Parameters
         ----------
             font_path : str
                 Path for the font.
-        Returns
-        -------
-            None
+
         '''
         if not os.path.isfile(font_path):
-            warnings.warn('Default font doesn\'t found.')
+            warnings.warn('Default font not found.')
         self.font = pixie.read_typeface(font_path)
 
     def make_font(self, size: int) -> pixie.Font:
         '''
-        Constructs all the necessary attributes for the Interface object.
+        Constructs a font object with the given size.
 
         Parameters
         ----------
-            response : str
-                Response obtained from the API, format:
-            font : str
-                The font used in the image, default 'Ubuntu-Regular_1.ttf'.
+            int
+                The size of the font.
         Returns
         -------
-            font : pixie.Font
-                The resulted font.
+            Pixie.Font
+                The resulting font object.
         '''
         font = self.font.new_font()
         font.size = size
@@ -180,14 +179,8 @@ class Interface():
 
     def make_imagen(self) -> None:
         '''
-        Draw the diferent parts of the final picture.
+        Draw the different parts of the final picture.
 
-        Parameters
-        ----------
-            None
-        Returns
-        -------
-            None
         '''
         icon = self.wsymbol.get_symbol_path_from_code(self.response['weather_code'],
                                                       self.response['is_day'])
@@ -196,10 +189,10 @@ class Interface():
         tmpr = pixie.read_image(tmpr)
 
         path = pixie.Path()
-        path.rounded_rect(0.05*self.width, 0.5*self.hight, self.width-(0.1*self.width),
-                          self.hight-(0.45*self.hight), 25, 25, 25, 25)
+        path.rounded_rect(0.05*self.width, 0.5*self.height, self.width-(0.1*self.width),
+                          self.height-(0.45*self.height), 25, 25, 25, 25)
 
-        mask = pixie.Mask(self.width, self.hight)
+        mask = pixie.Mask(self.width, self.height)
         mask.fill_path(path)
 
         blur = self.image.copy()
@@ -207,28 +200,28 @@ class Interface():
         blur.mask_draw(mask)
         self.image.draw(blur)
 
-        self.image.draw(icon, pixie.translate(0.1*self.width, 0.07*self.hight) *
+        self.image.draw(icon, pixie.translate(0.1*self.width, 0.07*self.height) *
                         pixie.scale(0.4, 0.4))
-        self.image.draw(tmpr, pixie.translate(0.5*self.width, 0.07*self.hight) *
+        self.image.draw(tmpr, pixie.translate(0.5*self.width, 0.07*self.height) *
                         pixie.scale(0.4, 0.4))
 
         self.image.fill_text(font=self.make_font(70),
                              text=str(self.response['temperature']) + ' °C',
                              h_align=pixie.LEFT_ALIGN,
-                             bounds=pixie.Vector2(0.2*self.width, 0.1*self.hight),
-                             transform=pixie.translate(0.75*self.width, 0.15*self.hight))
+                             bounds=pixie.Vector2(0.2*self.width, 0.1*self.height),
+                             transform=pixie.translate(0.75*self.width, 0.15*self.height))
 
         self.image.fill_text(font=self.make_font(30),
                              text=self.response['region'] + ', ' + self.response['country'],
                              h_align=pixie.CENTER_ALIGN,
-                             bounds=pixie.Vector2(1*self.width, 0.05*self.hight),
-                             transform=pixie.translate(0*self.width, 0.52*self.hight))
+                             bounds=pixie.Vector2(1*self.width, 0.05*self.height),
+                             transform=pixie.translate(0*self.width, 0.52*self.height))
 
         self.image.fill_text(font=self.make_font(30),
                              text=' ,'.join(self.response['weather_descriptions']),
                              h_align=pixie.CENTER_ALIGN,
-                             bounds=pixie.Vector2(1*self.width, 0.05*self.hight),
-                             transform=pixie.translate(0*self.width, 0.58*self.hight))
+                             bounds=pixie.Vector2(1*self.width, 0.05*self.height),
+                             transform=pixie.translate(0*self.width, 0.58*self.height))
 
         text = 'Wind speed: {} Km/H \nWind degree: {}°\nWind Dir: {} \nPressure: {} MB\nPrecip: {} MM'
         self.image.fill_text(font=self.make_font(20),
@@ -236,8 +229,8 @@ class Interface():
                                               self.response['wind_dir'], self.response['pressure'],
                                               self.response['precip']),
                              h_align=pixie.LEFT_ALIGN,
-                             bounds=pixie.Vector2(0.3*self.width, 0.2*self.hight),
-                             transform=pixie.translate(0.10*self.width, 0.72*self.hight))
+                             bounds=pixie.Vector2(0.3*self.width, 0.2*self.height),
+                             transform=pixie.translate(0.10*self.width, 0.72*self.height))
 
         text = 'Humidity: {} kPa\nCloud cover: {} okta\nFeelslike: {} °C\nUV index: {} \nVisibility: {} Km/H\n'
         self.image.fill_text(font=self.make_font(20),
@@ -245,8 +238,8 @@ class Interface():
                                               self.response['feelslike'], self.response['uv_index'],
                                               self.response['visibility']),
                              h_align=pixie.RIGHT_ALIGN,
-                             bounds=pixie.Vector2(0.35*self.width, 0.2*self.hight),
-                             transform=pixie.translate(0.55*self.width, 0.72*self.hight))
+                             bounds=pixie.Vector2(0.35*self.width, 0.2*self.height),
+                             transform=pixie.translate(0.55*self.width, 0.72*self.height))
 
     def save_imagen(self, path: str) -> None:
         '''
@@ -256,8 +249,5 @@ class Interface():
         ----------
             path : str
                 The path where the image is saved.
-        Returns
-        -------
-            None
         '''
         self.image.write_file(path)

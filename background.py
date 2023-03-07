@@ -4,27 +4,28 @@ import warnings
 import os
 
 '''
-    Consts
-    ------
-    The default backgound path.
+    Constants
+    ---------
+        The default background path.
 '''
 DEFAULT_BACKGROUND_PATH = 'src/img/backgrounds/'
+
 if not os.path.isdir(DEFAULT_BACKGROUND_PATH):
-    warnings.warn('Background doesn\'t found.')
+    warnings.warn('Background directory not found.')
 
 '''
-    Consts
-    ------
-    The const use in the Background Class.
+    Constants
+    ---------
+        The constants used in the Background Class.
 '''
 BACKGROUND_WIDTH = 800
-BACKGROUND_HIGHT = 656
+BACKGROUND_HEIGHT = 656
 BACKGROUND_EXTENSION = '.png'
 
 
 class Background(Enum):
     '''
-    This clases is an enum for the diferents backgrounds.
+    This class is an enum for different backgrounds.
 
     Attributes
     ----------
@@ -33,17 +34,17 @@ class Background(Enum):
 
     Methods
     -------
-    set_path(path: str) -> None:
-        Set a diferent path for the backgrounds imagenes.
+        set_path(path: str) -> None:
+            Sets a different path for the background images.
 
-    get_abs_path() -> str:
-        Get the absolut path of he backgound directory.
+        get_abs_path() -> str:
+            Gets the absolute path of the background directory.
 
-    get_image_path() -> str:
-        Get the absolut path of the one Background enum.
+        get_image_path() -> str:
+            Gets the absolute path of the specified Background enum.
 
-    get_size() -> Union[int, int]:
-        Get size of the one Background imagen.
+        get_size() -> Union[int, int]:
+            Gets the size of the specified Background image.
     '''
     BACKGROUND_UNKNOWN = 0
     BACKGROUND_SUNNY_DAY = 1
@@ -58,45 +59,36 @@ class Background(Enum):
 
     def set_path(self, path: str) -> None:
         '''
-        Set a diferent path for the backgrounds imagenes.
+        Sets a different path for the background images.
 
         Parameters
         ----------
             path : str
-                The new path for the new directory of the backgrounds imagenes.
-        Returns
-        -------
-            None
+                The new path for the directory of the background images.
         '''
         if not os.path.isdir(path):
-            warnings.warn('Background path doesn\'t found.')
+            warnings.warn('Background directory not found.')
         self.__path__ = path
 
     def get_abs_path(self) -> str:
         '''
-        Get the absolut path of he Background directory.
+        Gets the absolute path of the background directory
 
-        Parameters
-        ----------
-            None
         Returns
         -------
-            path : str
-                The absolut path directory of the backgrounds imagenes.
-        '''
+            str
+                The absolute path of the background directory.
+    '''
         return os.path.abspath(self.__path__)
 
     def get_image_path(self) -> str:
         '''
-        Get the absolut path of the one Background enum.
+        Gets the absolute path of the specified Background enum.
 
-        Parameters
-        ----------
-            None
         Returns
         -------
-            path : str
-                The absolut path for the especific background imagen.
+            str
+                The absolute path of the specified Background enum.
         '''
         if self.value == Background.BACKGROUND_SUNNY_DAY.value:
             return self.get_abs_path() + '/' + '01' + BACKGROUND_EXTENSION
@@ -121,14 +113,11 @@ class Background(Enum):
 
     def get_size(self) -> Union[int, int]:
         '''
-        Get size of the one Background imagen.
+        Gets the size of the specified Background image.
 
-        Parameters
-        ----------
-            None
         Returns
         -------
-            size : [int, int]
-                The size for the especific background imagen.
+            Union[int, int]
+                The size of the specified Background image.
         '''
-        return (BACKGROUND_WIDTH, BACKGROUND_HIGHT)
+        return BACKGROUND_WIDTH, BACKGROUND_HEIGHT

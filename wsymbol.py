@@ -5,96 +5,92 @@ import warnings
 import os
 
 '''
-    Consts
-    ------
-    The default wsymbol path.
+    Constants
+    ---------
+        The default path for the WSymbol images.
 '''
 WSYMBOL_DEFAULT_PATH = 'src/img/icons/'
 if not os.path.isdir(WSYMBOL_DEFAULT_PATH):
-    warnings.warn('Wsymbol path doesn\'t found.')
+    warnings.warn('WSymbol path not found.')
 WSYMBOL_DEFAULT_CONDITION_CODES_PATH = 'src/conditions_codes.xml'
 if not os.path.isfile(WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
-    warnings.warn('Condition codes doesn\'t found.')
+    warnings.warn('Condition codes not found.')
 
 '''
-    Consts
-    ------
-    The const use in the WSymbol Class.
+    Constants
+    ---------
+        The constants used in the WSymbol class.
 '''
 WSYMBOL_WIDTH = 512
-WSYMBOL_HIGHT = 512
+WSYMBOL_HEIGHT = 512
 WSYMBOL_EXTENSION = '.png'
 
 
-class WSymbol():
+class WSymbol:
     '''
-    This class handles the icons used in the diferents weather conditions.
+    This class handles the icons used in the different weather conditions.
 
     Attributes
     ----------
         __path__ : str
-            Icons directory path.
+            The path to the directory containing the icons.
         codes_dict : dict
-            A dict with the diferents icons paths.
+            A dictionary containing the paths to the different icons.
 
     Methods
     -------
-    parser_condition_codes(codes_file) -> None:
-        Load a xml file with the wheater codes.
+        parser_condition_codes(codes_file) -> None:
+            Load an XML file with the weather codes.
 
-    get_symbol_path_from_code(code: int, is_day: bool) -> str:
-        Get the icon path from a especific code.
+        get_symbol_path_from_code(code: int, is_day: bool) -> str:
+            Get the icon path from a specific code.
 
-    get_symbol_temp_from_code(tmp: int) -> str:
-        Get the icon path from temperature.
+        get_symbol_temp_from_code(tmp: int) -> str:
+            Get the icon path from the temperature.
 
-    set_path(path: str) -> None:
-        Sete diferent path for the icons drectory.
+        set_path(path: str) -> None:
+            Set a different path for the icons directory.
 
-    get_abs_path() -> str:
-        Get absolut path for the icons directory.
+        get_abs_path() -> str:
+            Get the absolute path for the icons directory.
 
-    get_size() -> Union[int, int]:
-        Get size for specific icon imagen.
+        get_size() -> Union[int, int]:
+            Get the size of a specific icon image.
     '''
 
-    def __init__(self, path=WSYMBOL_DEFAULT_PATH, codes=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> None:
+    def __init__(self, path=WSYMBOL_DEFAULT_PATH, codes=WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
         '''
         Constructs all the necessary attributes for the WSymbol object.
 
         Parameters
         ----------
             path : str
-                Icons directory path.
+                The path to the directory containing the icons.
             codes : str
-                A xml file with the diferents icons paths. You can dowload from
+                An XML file with the paths to the different icons. You can download it from
                 https://weatherstack.com/site_resources/weatherstack-weather-condition-codes.zip
-        Returns
-        -------
-            None
+
         '''
         if not os.path.isdir(path):
-            warnings.warn('Wsymbol path doesn\'t found.')
+            warnings.warn('WSymbol path not found.')
         self.__path__ = path
         self.codes_dict = {}
 
         self.parser_condition_codes(codes)
 
-    def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> None:
+    def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
         '''
-        Load a xml file with the wheater codes.
+        Load an XML file with the weather codes.
 
         Parameters
         ----------
             codes_file : str
-                A xml file with the diferents icons paths. You can dowload from
+                An XML file with the paths to the different icons. You can download it from
                 https://weatherstack.com/site_resources/weatherstack-weather-condition-codes.zip
-        Returns
-        -------
-            None
+
         '''
         if not os.path.isfile(codes_file):
-            warnings.warn('Condition codes doesn\'t found.')
+            warnings.warn('Condition codes not found.')
 
         with open(codes_file) as fd:
             doc = xmltodict.parse(fd.read())
@@ -107,18 +103,19 @@ class WSymbol():
 
     def get_symbol_path_from_code(self, code: int, is_day: bool) -> str:
         '''
-        Get the icon path from a especific code.
+        Get the icon path for a specific code.
 
         Parameters
         ----------
-            codes : int
-                Number of the wheater codes
+            code : int
+                The number representing the weather code.
             is_day : bool
-                True if it's dya, false it's night.
+                True if it's daytime, false if it's nighttime.
+
         Returns
         -------
-            path : str
-                The imagen path for the input code.
+            str
+                The image path for the given code.
         '''
         for cc, value in self.codes_dict.items():
             if cc == code:
@@ -127,21 +124,22 @@ class WSymbol():
                 else:
                     return self.get_abs_path() + '/' + value['night_icon'] + WSYMBOL_EXTENSION
 
-        warnings.warn('Code unknown: ' + str(code))
+        warnings.warn('Unknown code: ' + str(code))
         return self.get_abs_path() + '/' + 'unknown' + WSYMBOL_EXTENSION
 
     def get_symbol_temp_from_code(self, tmp: int) -> str:
         '''
-        Get the icon path from temperature.
+        Get the icon path for a given temperature.
 
         Parameters
         ----------
             tmp : int
                 The temperature.
+
         Returns
         -------
-            path : str
-                The imagen path for the input tmperature.
+            str
+                The image path for the given temperature.
         '''
         if tmp > 30:
             return self.get_abs_path() + '/' + 'hot' + WSYMBOL_EXTENSION
@@ -152,44 +150,36 @@ class WSymbol():
 
     def set_path(self, path: str) -> None:
         '''
-        Set a diferent path for the wsymbol imagenes.
+        Set a different path for the wsymbol images.
 
         Parameters
         ----------
             path : str
-                The new path for the new directory of the wsymbol imagenes.
-        Returns
-        -------
-            None
+                The new path for the directory of the wsymbol images.
+
         '''
         if not os.path.isdir(path):
-            warnings.warn('Wsymbol path doesn\'t found.')
+            warnings.warn('Wsymbol path not found.')
         self.__path__ = path
 
     def get_abs_path(self) -> str:
         '''
-        Get the absolut path of the one WSymbol.
+        Get the absolute path of the wsymbol.
 
-        Parameters
-        ----------
-            None
         Returns
         -------
-            path : str
-                The absolut path for the especific wsymbol imagen.
+            str
+                The absolute path for the specified wsymbol image.
         '''
         return os.path.abspath(self.__path__)
 
     def get_size(self) -> Union[int, int]:
         '''
-        Get size of the one WSymbol imagen.
+        Get size of the wsymbol image.
 
-        Parameters
-        ----------
-            None
         Returns
         -------
-            size : [int, int]
-                The size for the especific wsymbol imagen.
+            Tuple[int, int]
+                The size of the specified wsymbol image.
         '''
-        return (WSYMBOL_WIDTH, WSYMBOL_HIGHT)
+        return (WSYMBOL_WIDTH, WSYMBOL_HEIGHT)
