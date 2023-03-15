@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_0750e6bc434409ee08e239e0bc088ab7 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_0750e6bc434409ee08e239e0bc088ab7" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_0750e6bc434409ee08e239e0bc088ab7 = L.map(
+                "map_0750e6bc434409ee08e239e0bc088ab7",
+                {
+                    center: [0.0, 0.0],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 2,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_24ecf1846fa108d3695d0d315e7e6687 = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+            var marker_ee8d86efca42cdc728ff8b60342d1dc0 = L.marker(
+                [35.69, 139.692],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_7ead6b5e2c88afa424398cdc587386a8 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ae14ba5ba24f31e800e890d783f8ac6e = $(`<div id="html_ae14ba5ba24f31e800e890d783f8ac6e" style="width: 100.0%; height: 100.0%;">jsmith, Partly cloudy, 9°C</div>`)[0];
+                popup_7ead6b5e2c88afa424398cdc587386a8.setContent(html_ae14ba5ba24f31e800e890d783f8ac6e);
+            
+        
+
+        marker_ee8d86efca42cdc728ff8b60342d1dc0.bindPopup(popup_7ead6b5e2c88afa424398cdc587386a8)
+        ;
+
+        
+    
+    
+            var marker_326d5d9c8b28dfdfcedbf79d7e17a293 = L.marker(
+                [42.85, -80.5],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_a5a2bf646c3072309cc26b21b8d443c6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_0f9faef73749b1e0d7760d6b7ec09d45 = $(`<div id="html_0f9faef73749b1e0d7760d6b7ec09d45" style="width: 100.0%; height: 100.0%;">jsmith, Partly cloudy, -2°C</div>`)[0];
+                popup_a5a2bf646c3072309cc26b21b8d443c6.setContent(html_0f9faef73749b1e0d7760d6b7ec09d45);
+            
+        
+
+        marker_326d5d9c8b28dfdfcedbf79d7e17a293.bindPopup(popup_a5a2bf646c3072309cc26b21b8d443c6)
+        ;
+
+        
+    
+    
+            var marker_d782570b5ed2a8622ab4f757bdcb7ff6 = L.marker(
+                [31.005, 121.409],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_745a3e7a446490205610039082ce405b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_9653086c39544252efc66c9c3582b207 = $(`<div id="html_9653086c39544252efc66c9c3582b207" style="width: 100.0%; height: 100.0%;">aurquizza, Clear, 11°C</div>`)[0];
+                popup_745a3e7a446490205610039082ce405b.setContent(html_9653086c39544252efc66c9c3582b207);
+            
+        
+
+        marker_d782570b5ed2a8622ab4f757bdcb7ff6.bindPopup(popup_745a3e7a446490205610039082ce405b)
+        ;
+
+        
+    
+    
+            var marker_b458da2a23c936e3471f15a4941c2e2b = L.marker(
+                [-23.533, -46.617],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_89e1baa4eba7110f92c7f289b11ee7b2 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_f0e427a9c64b7f6616fff31b3bfdabe6 = $(`<div id="html_f0e427a9c64b7f6616fff31b3bfdabe6" style="width: 100.0%; height: 100.0%;">jsmith, Light Rain With Thunderstorm, 22°C</div>`)[0];
+                popup_89e1baa4eba7110f92c7f289b11ee7b2.setContent(html_f0e427a9c64b7f6616fff31b3bfdabe6);
+            
+        
+
+        marker_b458da2a23c936e3471f15a4941c2e2b.bindPopup(popup_89e1baa4eba7110f92c7f289b11ee7b2)
+        ;
+
+        
+    
+    
+            var marker_4fa44fca6d02c70e4e36c1edba5e38e6 = L.marker(
+                [19.429, -99.128],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_466b6f871e4e8e7608e9b888e2952f0b = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_dcc4cf8cc7b2f91e4e1629a3f3ce77a3 = $(`<div id="html_dcc4cf8cc7b2f91e4e1629a3f3ce77a3" style="width: 100.0%; height: 100.0%;">jperez, Partly cloudy, 24°C</div>`)[0];
+                popup_466b6f871e4e8e7608e9b888e2952f0b.setContent(html_dcc4cf8cc7b2f91e4e1629a3f3ce77a3);
+            
+        
+
+        marker_4fa44fca6d02c70e4e36c1edba5e38e6.bindPopup(popup_466b6f871e4e8e7608e9b888e2952f0b)
+        ;
+
+        
+    
+    
+            var marker_34701984b9cce3a8a1161498e43f8ad0 = L.marker(
+                [18.975, 72.826],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_248cb354efd053fc8fa210aa9887bed7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_10ca6ae10e2268a014deec1ea9e350b7 = $(`<div id="html_10ca6ae10e2268a014deec1ea9e350b7" style="width: 100.0%; height: 100.0%;">jlord, Smoke, 29°C</div>`)[0];
+                popup_248cb354efd053fc8fa210aa9887bed7.setContent(html_10ca6ae10e2268a014deec1ea9e350b7);
+            
+        
+
+        marker_34701984b9cce3a8a1161498e43f8ad0.bindPopup(popup_248cb354efd053fc8fa210aa9887bed7)
+        ;
+
+        
+    
+    
+            var marker_2d73356fed4176245e8dad6b03acf5b5 = L.marker(
+                [39.929, 116.388],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_25f2c37d61041475a9dbb6163142ffe7 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_ec3e12966be980bb7f8e67d69807ef26 = $(`<div id="html_ec3e12966be980bb7f8e67d69807ef26" style="width: 100.0%; height: 100.0%;">jperez, Clear, 4°C</div>`)[0];
+                popup_25f2c37d61041475a9dbb6163142ffe7.setContent(html_ec3e12966be980bb7f8e67d69807ef26);
+            
+        
+
+        marker_2d73356fed4176245e8dad6b03acf5b5.bindPopup(popup_25f2c37d61041475a9dbb6163142ffe7)
+        ;
+
+        
+    
+    
+            var marker_6b32879fbbf07007c137e7be1bc73a32 = L.marker(
+                [34.694, 135.502],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_6a41704ed640c2a78df74312fd5ce2b6 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_22f13c628d3a5a4d45f94c156c319a42 = $(`<div id="html_22f13c628d3a5a4d45f94c156c319a42" style="width: 100.0%; height: 100.0%;">jsmith, Clear, 5°C</div>`)[0];
+                popup_6a41704ed640c2a78df74312fd5ce2b6.setContent(html_22f13c628d3a5a4d45f94c156c319a42);
+            
+        
+
+        marker_6b32879fbbf07007c137e7be1bc73a32.bindPopup(popup_6a41704ed640c2a78df74312fd5ce2b6)
+        ;
+
+        
+    
+    
+            var marker_80bc7595949ee12bb84a538d876a16ce = L.marker(
+                [40.714, -74.006],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_3c512c9213023133fdcddeb764bb42d9 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_b0ddda241855a833436655ac7bf40658 = $(`<div id="html_b0ddda241855a833436655ac7bf40658" style="width: 100.0%; height: 100.0%;">aurquizza, Snow, 1°C</div>`)[0];
+                popup_3c512c9213023133fdcddeb764bb42d9.setContent(html_b0ddda241855a833436655ac7bf40658);
+            
+        
+
+        marker_80bc7595949ee12bb84a538d876a16ce.bindPopup(popup_3c512c9213023133fdcddeb764bb42d9)
+        ;
+
+        
+    
+    
+            var marker_8b8ab6dd8e74037a78a346672d7db1a3 = L.marker(
+                [24.867, 67.05],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_6c8593e652e07914d6a71ee77f9411a0 = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c7cf5e6fce8031d62aeaab457a3982e7 = $(`<div id="html_c7cf5e6fce8031d62aeaab457a3982e7" style="width: 100.0%; height: 100.0%;">jperez, Haze, 24°C</div>`)[0];
+                popup_6c8593e652e07914d6a71ee77f9411a0.setContent(html_c7cf5e6fce8031d62aeaab457a3982e7);
+            
+        
+
+        marker_8b8ab6dd8e74037a78a346672d7db1a3.bindPopup(popup_6c8593e652e07914d6a71ee77f9411a0)
+        ;
+
+        
+    
+    
+            var marker_aada78e8458e720cb387ebed2f71debc = L.marker(
+                [-34.588, -58.673],
+                {}
+            ).addTo(map_0750e6bc434409ee08e239e0bc088ab7);
+        
+    
+        var popup_597af3af376f470312e8d5cf958793ab = L.popup({"maxWidth": "100%"});
+
+        
+            
+                var html_c4ee16f046fa6d8a090c599128a80e6e = $(`<div id="html_c4ee16f046fa6d8a090c599128a80e6e" style="width: 100.0%; height: 100.0%;">jlord, Partly cloudy, 34°C</div>`)[0];
+                popup_597af3af376f470312e8d5cf958793ab.setContent(html_c4ee16f046fa6d8a090c599128a80e6e);
+            
+        
+
+        marker_aada78e8458e720cb387ebed2f71debc.bindPopup(popup_597af3af376f470312e8d5cf958793ab)
+        ;
+
+        
+    
+</script>
+</html>

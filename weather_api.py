@@ -136,7 +136,10 @@ class WeatherApi:
         current = self.request.get('current', {})
 
         return {'country': location['country'],
+                'localtime': location['localtime_epoch'],
                 'region': location['name'],
+                'lon': location['lon'],
+                'lat': location['lat'],
                 'temperature': current['temperature'],
                 'weather_code': current['weather_code'],
                 'weather_descriptions': current['weather_descriptions'],
