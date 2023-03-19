@@ -10,6 +10,9 @@ if [ "$#" -eq 0 ]; then
     return
 fi
 
+if [ ! -d .keys ]; then
+  mkdir -p .keys;
+fi
 # If no exist a encripted token for Telgram or Weatherstack
 if [ "$#" -eq 3 ] || [ ! -f $TELEGRAM_ENCRYPT_FILE ] || [ ! -f $TELEGRAM_ENCRYPT_FILE ]; then
   tmpfile=$(mktemp)
