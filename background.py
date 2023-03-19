@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Union
+from typing import NoReturn
 import warnings
 import os
 
@@ -34,7 +35,7 @@ class Background(Enum):
 
     Methods
     -------
-        set_path(path: str) -> None:
+        set_path(path: str) -> NoReturn:
             Sets a different path for the background images.
 
         get_abs_path() -> str:
@@ -57,7 +58,7 @@ class Background(Enum):
     BACKGROUND_FOG = 8
     __path__ = DEFAULT_BACKGROUND_PATH
 
-    def set_path(self, path: str) -> None:
+    def set_path(self, path: str) -> NoReturn:
         '''
         Sets a different path for the background images.
 
@@ -81,31 +82,32 @@ class Background(Enum):
     '''
         return os.path.abspath(self.__path__)
 
-    def get_image_path(self) -> str:
+    def get_image_path(self) -> (str, bool):
         '''
         Gets the absolute path of the specified Background enum.
 
         Returns
         -------
-            str
+            (str, bool)
                 The absolute path of the specified Background enum.
+                True if the background is black, False otherwise.
         '''
         if self.value == Background.BACKGROUND_SUNNY_DAY.value:
-            return self.get_abs_path() + '/' + '01' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '01' + BACKGROUND_EXTENSION, False)
         if self.value == Background.BACKGROUND_SKY_NIGHT.value:
-            return self.get_abs_path() + '/' + '02' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '02' + BACKGROUND_EXTENSION, True)
         if self.value == Background.BACKGROUND_CLOUDY_DAY.value:
-            return self.get_abs_path() + '/' + '03' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '03' + BACKGROUND_EXTENSION, False)
         if self.value == Background.BACKGROUND_CLOUDY_NIGHT.value:
-            return self.get_abs_path() + '/' + '04' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '04' + BACKGROUND_EXTENSION, True)
         if self.value == Background.BACKGROUND_RAINY.value:
-            return self.get_abs_path() + '/' + '05' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '05' + BACKGROUND_EXTENSION, True)
         if self.value == Background.BACKGROUND_THUNDER.value:
-            return self.get_abs_path() + '/' + '06' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '06' + BACKGROUND_EXTENSION, True)
         if self.value == Background.BACKGROUND_SNOW.value:
-            return self.get_abs_path() + '/' + '07' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '07' + BACKGROUND_EXTENSION, True)
         if self.value == Background.BACKGROUND_FOG.value:
-            return self.get_abs_path() + '/' + '08' + BACKGROUND_EXTENSION
+            return (self.get_abs_path() + '/' + '08' + BACKGROUND_EXTENSION, False)
         else:
             # BACKGROUND_UNKNOWN
             warnings.warn('Background missed.')

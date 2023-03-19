@@ -225,6 +225,20 @@ class TelegramBot:
         user = self.current_update.message.from_user.username
         self.logger.info(f'It has replied to: {user}.')
 
+    async def send_message(self, message) -> NoReturn:
+        '''
+        This method sends the current weather to the user.
+
+        Parameters:
+        -----------
+        img_path: str
+            The path of the image containing the weather information.
+        '''
+        self.update_id += 1
+        await self.current_update.message.reply_text(message)
+        user = self.current_update.message.from_user.username
+        self.logger.info(f'It has replied to: {user}. The message is: {message}')
+
 
     def get_current_usser(self) -> dict:
         '''

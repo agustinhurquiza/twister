@@ -1,8 +1,10 @@
-from enum import Enum
-from typing import Union
 import xmltodict
 import warnings
 import os
+from enum import Enum
+from typing import Union
+from typing import NoReturn
+
 
 '''
     Constants
@@ -39,7 +41,7 @@ class WSymbol:
 
     Methods
     -------
-        parser_condition_codes(codes_file) -> None:
+        parser_condition_codes(codes_file) -> NoReturn:
             Load an XML file with the weather codes.
 
         get_symbol_path_from_code(code: int, is_day: bool) -> str:
@@ -48,7 +50,7 @@ class WSymbol:
         get_symbol_temp_from_code(tmp: int) -> str:
             Get the icon path from the temperature.
 
-        set_path(path: str) -> None:
+        set_path(path: str) -> NoReturn:
             Set a different path for the icons directory.
 
         get_abs_path() -> str:
@@ -78,7 +80,7 @@ class WSymbol:
 
         self.parser_condition_codes(codes)
 
-    def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
+    def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> NoReturn:
         '''
         Load an XML file with the weather codes.
 
@@ -148,7 +150,7 @@ class WSymbol:
         else:
             return self.get_abs_path() + '/' + 'cool' + WSYMBOL_EXTENSION
 
-    def set_path(self, path: str) -> None:
+    def set_path(self, path: str) -> NoReturn:
         '''
         Set a different path for the wsymbol images.
 

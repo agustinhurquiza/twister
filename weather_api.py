@@ -2,6 +2,7 @@ import re
 import os
 import requests
 import warnings
+from typing import NoReturn
 from weatherstack_api_error import WeatherStackAPIError
 
 
@@ -22,19 +23,19 @@ class WeatherApi:
 
     Methods
     -------
-        init(unit: str = 'm', http: bool = True) -> None:
+        init(unit: str = 'm', http: bool = True) -> NoReturn:
             Constructor for the WeatherApi class.
         base_url(self) -> str:
             Returns the base url for the API call based on http and domain values.
         check_query(query: str) -> bool:
             Checks if a query is valid for the API call.
-        get_weather(query: str) -> bool:
+        get_weather(query: str) -> NoReturn:
             Calls the API to fetch weather data for a given query.
         parser_request() -> dict:
             Parses the JSON response from the API call into a dictionary of relevant information.
-        clean_request() -> None:
+        clean_request() -> NoReturn:
             Cleans up the request attribute after parsing the JSON response.
-        raise_weather_stack_exception() -> None:
+        raise_weather_stack_exception() -> NoReturn:
             Raises a WeatherStackAPIError exception if the API call was unsuccessful.
     '''
 
@@ -43,7 +44,7 @@ class WeatherApi:
     unit = 'm'
     request = None
 
-    def __init__(self, unit: str = 'm', http: bool = True) -> None:
+    def __init__(self, unit: str = 'm', http: bool = True) -> NoReturn:
         '''
         Constructor for the WeatherApi class.
 
@@ -95,7 +96,7 @@ class WeatherApi:
                 True if the query string is valid, False otherwise.
         '''
         MAX_LEN_QUERY = 58
-        REGEX_QUERY = '^[A-Za-z0-9_-]*$'
+        REGEX_QUERY = '^[\ A-Za-z0-9_-]*$'
 
         regex = re.compile(REGEX_QUERY)
 
@@ -104,7 +105,7 @@ class WeatherApi:
 
         return bool(regex.match(query))
 
-    def get_weather(self, query: str) -> None:
+    def get_weather(self, query: str) -> NoReturn:
         '''
         Calls the API to fetch weather data for a given query.
         Parameters
@@ -155,13 +156,13 @@ class WeatherApi:
                 'visibility': current['visibility'],
                 'is_day': current['is_day'] == 'yes'}
 
-    def clean_request(self) -> None:
+    def clean_request(self) -> NoReturn:
         '''
         Cleans up the request attribute after parsing the JSON response.
         '''
         request = None
 
-    def raise_weather_stack_exception(self) -> None:
+    def raise_weather_stack_exception(self) -> NoReturn:
         '''
         Raises a WeatherStackAPIError exception if the API call was unsuccessful.
         '''

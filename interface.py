@@ -1,22 +1,23 @@
 import pixie
 import warnings
 import os
+from typing import NoReturn
 from background import Background
 from wsymbol import WSymbol
 
 '''
-    Constants
-    ---------
-        The path of the default font.
+Constants
+---------
+    The path of the default font.
 '''
 INTERFACE_DEFAULT_FONT = 'src/Ubuntu-Regular_1.ttf'
 if not os.path.isfile(INTERFACE_DEFAULT_FONT):
     warnings.warn('Default font not found.')
 
 '''
-    Constants
-    ---------
-        Used to match the weather with the background image.
+Constants
+---------
+    Used to match the weather with the background image.
 '''
 INTERFACE_SNOW_CODES = [371, 368, 338, 335, 332, 329, 326, 323, 230, 179, 227]
 INTERFACE_THUNDER_CODES = [395, 392, 389, 200, 386]
@@ -63,26 +64,31 @@ class Interface():
             The height of the image.
         image : pixie.Image
             The edited image.
+        white_font:
+            True if the background is black, False otherwise.
 
     Methods
     -------
-        set_background() -> None:
+        __init__(response: dict, font=INTERFACE_DEFAULT_FONT) -> NoReturn:
+            Constructs all the necessary attributes for the Interface object.
+
+        set_background() -> NoReturn:
             Sets the background image.
 
-        set_font(font_path: str) -> None:
+        set_font(font_path: str) -> NoReturn:
             Sets a different font to use in the image.
 
         make_font(size: int) -> pixie.Font:
             Edits the font for the different text in the image.
 
-        make_image() -> None:
+        make_image() -> NoReturn:
             Draws the different parts of the final picture.
 
-        save_image(path) -> None:
+        save_image(path) -> NoReturn:
             Saves the image in the specified path.
     '''
 
-    def __init__(self, response: dict, font=INTERFACE_DEFAULT_FONT) -> None:
+    def __init__(self, response: dict, font=INTERFACE_DEFAULT_FONT) -> NoReturn:
         '''
         Constructs all the necessary attributes for the Interface object.
 
@@ -113,8 +119,9 @@ class Interface():
         self.width = 0
         self.height = 0
         self.image = None
+        self.white_font = False
 
-    def set_background(self) -> None:
+    def set_background(self) -> NoReturn:
         '''
         Set the background image.
 
@@ -144,9 +151,10 @@ class Interface():
             self.background = Background.BACKGROUND_UNKNOWN
 
         self.width, self.height = self.background.get_size()
-        self.image = pixie.read_image(self.background.get_image_path())
+        (path, self.white_font) = self.background.get_image_path()
+        self.image = pixie.read_image(path)
 
-    def set_font(self, font_path: str) -> None:
+    def set_font(self, font_path: str) -> NoReturn:
         '''
         Set a different font used in the image.
 
@@ -173,11 +181,17 @@ class Interface():
             Pixie.Font
                 The resulting font object.
         '''
+        if not self.white_font:
+            color = pixie.Color(0, 0, 0, 0.78125)
+        else:
+            color = pixie.Color(0.78125, 0.78125, 0.78125, 1)
+
         font = self.font.new_font()
+        font.paint.color = color
         font.size = size
         return font
 
-    def make_imagen(self) -> None:
+    def make_imagen(self) -> NoReturn:
         '''
         Draw the different parts of the final picture.
 
@@ -241,7 +255,7 @@ class Interface():
                              bounds=pixie.Vector2(0.35*self.width, 0.2*self.height),
                              transform=pixie.translate(0.55*self.width, 0.72*self.height))
 
-    def save_imagen(self, path: str) -> None:
+    def save_imagen(self, path: str) -> NoReturn:
         '''
         Save the imagen in the especific path.
 
