@@ -7,9 +7,9 @@ from typing import NoReturn
 
 
 '''
-    Constants
-    ---------
-        The default path for the WSymbol images.
+Constants
+---------
+    The default path for the WSymbol images.
 '''
 WSYMBOL_DEFAULT_PATH = 'src/img/icons/'
 if not os.path.isdir(WSYMBOL_DEFAULT_PATH):
@@ -19,9 +19,9 @@ if not os.path.isfile(WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
     warnings.warn('Condition codes not found.')
 
 '''
-    Constants
-    ---------
-        The constants used in the WSymbol class.
+Constants
+---------
+    The constants used in the WSymbol class.
 '''
 WSYMBOL_WIDTH = 512
 WSYMBOL_HEIGHT = 512
@@ -60,6 +60,7 @@ class WSymbol:
             Get the size of a specific icon image.
     '''
 
+
     def __init__(self, path=WSYMBOL_DEFAULT_PATH, codes=WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
         '''
         Constructs all the necessary attributes for the WSymbol object.
@@ -79,6 +80,7 @@ class WSymbol:
         self.codes_dict = {}
 
         self.parser_condition_codes(codes)
+
 
     def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> NoReturn:
         '''
@@ -102,6 +104,7 @@ class WSymbol:
             self.codes_dict[int(code['code'])] = {'description': code['description'],
                                                   'day_icon': code['day_icon'],
                                                   'night_icon': code['night_icon']}
+
 
     def get_symbol_path_from_code(self, code: int, is_day: bool) -> str:
         '''
@@ -129,6 +132,7 @@ class WSymbol:
         warnings.warn('Unknown code: ' + str(code))
         return self.get_abs_path() + '/' + 'unknown' + WSYMBOL_EXTENSION
 
+
     def get_symbol_temp_from_code(self, tmp: int) -> str:
         '''
         Get the icon path for a given temperature.
@@ -150,6 +154,7 @@ class WSymbol:
         else:
             return self.get_abs_path() + '/' + 'cool' + WSYMBOL_EXTENSION
 
+
     def set_path(self, path: str) -> NoReturn:
         '''
         Set a different path for the wsymbol images.
@@ -164,6 +169,7 @@ class WSymbol:
             warnings.warn('Wsymbol path not found.')
         self.__path__ = path
 
+
     def get_abs_path(self) -> str:
         '''
         Get the absolute path of the wsymbol.
@@ -174,6 +180,7 @@ class WSymbol:
                 The absolute path for the specified wsymbol image.
         '''
         return os.path.abspath(self.__path__)
+
 
     def get_size(self) -> Union[int, int]:
         '''

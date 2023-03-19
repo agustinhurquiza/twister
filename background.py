@@ -71,6 +71,7 @@ class Background(Enum):
             warnings.warn('Background directory not found.')
         self.__path__ = path
 
+
     def get_abs_path(self) -> str:
         '''
         Gets the absolute path of the background directory
@@ -81,6 +82,7 @@ class Background(Enum):
                 The absolute path of the background directory.
     '''
         return os.path.abspath(self.__path__)
+
 
     def get_image_path(self) -> (str, bool):
         '''
@@ -112,6 +114,7 @@ class Background(Enum):
             # BACKGROUND_UNKNOWN
             warnings.warn('Background missed.')
             return self.get_abs_path() + '/' + 'unknown' + BACKGROUND_EXTENSION
+
 
     def get_size(self) -> Union[int, int]:
         '''

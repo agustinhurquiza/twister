@@ -5,12 +5,12 @@ from typing import NoReturn
 from interface import Interface
 from weather_api import WeatherApi
 from telegram_bot import TelegramBot, MensaggeType
+import argparse
 
 
 async def main() -> NoReturn:
-    logging.basicConfig(
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
-    )
+    logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                        level=logging.INFO)
     logger = logging.getLogger('Telegram Bot')
 
     wapi = WeatherApi()
@@ -61,6 +61,7 @@ async def main() -> NoReturn:
             interface.save_imagen('.tmp/' + str(count) + '.png')
             await bot.send_weather('.tmp/' + str(count) + '.png')
             wapi.clean_request()
+            interface = None
             count += 1
 
 

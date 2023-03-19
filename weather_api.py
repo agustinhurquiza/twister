@@ -44,6 +44,7 @@ class WeatherApi:
     unit = 'm'
     request = None
 
+
     def __init__(self, unit: str = 'm', http: bool = True) -> NoReturn:
         '''
         Constructor for the WeatherApi class.
@@ -60,10 +61,11 @@ class WeatherApi:
         ------
         AssertionError: if the unit parameter is not one of 'm', 's', or 'f'.
         '''
-        assert unit in ['m','s','f'], 'Unit not available.'
+        assert unit in ['m', 's', 'f'], 'Unit not available.'
 
         self.http = http
         self.unit = unit
+
 
     def base_url(self) -> str:
         '''
@@ -81,6 +83,7 @@ class WeatherApi:
 
         return f'{base_url}{self.domain}'
 
+
     def check_query(self, query: str) -> bool:
         '''
         Checks whether a query string is valid for the API call.
@@ -96,7 +99,7 @@ class WeatherApi:
                 True if the query string is valid, False otherwise.
         '''
         MAX_LEN_QUERY = 58
-        REGEX_QUERY = '^[\ A-Za-z0-9_-]*$'
+        REGEX_QUERY = r'^[\ A-Za-z0-9_-]*$'
 
         regex = re.compile(REGEX_QUERY)
 
@@ -105,9 +108,11 @@ class WeatherApi:
 
         return bool(regex.match(query))
 
+
     def get_weather(self, query: str) -> NoReturn:
         '''
         Calls the API to fetch weather data for a given query.
+
         Parameters
         ----------
             query : str
@@ -123,6 +128,7 @@ class WeatherApi:
 
         if 'success' in self.request.keys():
             self.raise_weather_stack_exception()
+
 
     def parser_request(self) -> dict:
         '''
@@ -156,11 +162,13 @@ class WeatherApi:
                 'visibility': current['visibility'],
                 'is_day': current['is_day'] == 'yes'}
 
+
     def clean_request(self) -> NoReturn:
         '''
         Cleans up the request attribute after parsing the JSON response.
         '''
         request = None
+
 
     def raise_weather_stack_exception(self) -> NoReturn:
         '''

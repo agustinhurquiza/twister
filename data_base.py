@@ -1,7 +1,9 @@
 import sqlite3
 import time
 import folium
+from typing import NoReturn
 import matplotlib.pyplot as plt
+
 
 class Database:
     '''
@@ -16,42 +18,45 @@ class Database:
 
         Methods
         -------
-            __init__() -> None:
+            __init__() -> NoReturn:
                 Creates a new database connection and initializes the tables.
-            __del__() -> None:
+            __del__() -> NoReturn:
                 Closes the database connection when the object is destroyed.
-            __create_tabales__() -> None:
+            __create_tabales__() -> NoReturn:
                 Initializes the tables if they do not exist.
             user_exist(id: int) -> bool:
                 Returns True if the user with the given id exists in the database, False otherwise.
-            add_user(user: dict) -> None:
+            add_user(user: dict) -> NoReturn:
                 Inserts a new user into the database.
-            add_register(data: dict, user_id: int, is_real_location: bool) -> None:
+            add_register(data: dict, user_id: int, is_real_location: bool) -> NoReturn:
                 Inserts a new register into the database.
             get_registers_from_epoch(epoch: int) -> list:
                 Returns a list of registers since a specific epoch.
             count_users() -> int:
                 Returns the number of users in the database.
-            draw_locations_in_a_map_and_statistics(epoch: int=0, opath: str='stat/') -> None:
+            draw_locations_in_a_map_and_statistics(epoch: int=0, opath: str='stat/') -> NoReturn:
                 Creates a map with registered locations and some statistics about the data.
     '''
 
     __DB_LOCATION = 'data_base.db'
 
-    def __init__(self) -> None:
+
+    def __init__(self) -> NoReturn:
         '''
             Creates a new database connection and initializes the tables.
         '''
         self.__db_connection = sqlite3.connect(self.__DB_LOCATION)
         self.__create_tabales__()
 
-    def __del__(self) -> None:
+
+    def __del__(self) -> NoReturn:
         '''
             Closes the database connection when the object is destroyed.
         '''
         self.__db_connection.close()
 
-    def __create_tabales__(self) -> None:
+
+    def __create_tabales__(self) -> NoReturn:
         '''
             Initializes the tables if they do not exist.
         '''
@@ -93,6 +98,7 @@ class Database:
                                                       );'''
         self.__db_connection.execute(sql)
 
+
     def user_exist(self, id: int) -> bool:
         '''
             Checks if a user with given id exists in the database.
@@ -111,7 +117,8 @@ class Database:
         result = cursor.execute(query, (id,)).fetchone()
         return result[0] > 0
 
-    def add_user(self, user: dict) -> None:
+
+    def add_user(self, user: dict) -> NoReturn:
         '''
             Adds a new user to the database.
 
@@ -124,10 +131,11 @@ class Database:
         query = '''INSERT INTO users (id, is_bot, first_name, last_name, username, language_code)
                    VALUES (?, ?, ?, ?, ?, ?)'''
         cursor.execute(query, (user['id'], user['is_bot'], user['first_name'], user['last_name'],
-                               user['username'],user['language_code'],))
+                               user['username'], user['language_code']))
         self.__db_connection.commit()
 
-    def add_register(self, data: dict, user_id: int, is_real_location: bool) -> None:
+
+    def add_register(self, data: dict, user_id: int, is_real_location: bool) -> NoReturn:
 
         '''
             Adds a new register to the database.
@@ -158,6 +166,7 @@ class Database:
                                data['cloudcover'], data['feelslike'], data['uv_index'],
                                data['visibility'], data['is_day'], is_real_location))
         self.__db_connection.commit()
+
 
     def get_registers_from_epoch(self, epoch: int) -> list:
         '''
@@ -190,6 +199,7 @@ class Database:
             registers.append(register)
         return registers
 
+
     def count_users(self) -> int:
         '''
             Returns the number of users in the database.
@@ -204,7 +214,8 @@ class Database:
         result = cursor.execute(query).fetchall()
         return result[0][0]
 
-    def draw_locations_in_a_map_and_statistics(self, epoch: int=0, opath: str='stat/') -> None:
+
+    def draw_locations_in_a_map_and_statistics(self, epoch: int = 0, opath: str = 'stat/') -> NoReturn:
         """
             This method creates a map with registered locations and some statistics about the data.
 

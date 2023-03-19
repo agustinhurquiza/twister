@@ -88,6 +88,7 @@ class Interface():
             Saves the image in the specified path.
     '''
 
+
     def __init__(self, response: dict, font=INTERFACE_DEFAULT_FONT) -> NoReturn:
         '''
         Constructs all the necessary attributes for the Interface object.
@@ -121,6 +122,7 @@ class Interface():
         self.image = None
         self.white_font = False
 
+
     def set_background(self) -> NoReturn:
         '''
         Set the background image.
@@ -145,14 +147,14 @@ class Interface():
         elif self.response['weather_code'] in INTERFACE_FOG_CODES:
             self.background = Background.BACKGROUND_FOG
         else:
-            warnings.warn('Unknown background, the code: ' +
-                          str(self.response['weather_code']) +
-                          ' was not found')
+            message = 'Unknown background, the code: ' + str(self.response['weather_code']) + ' was not found'
+            warnings.warn(message)
             self.background = Background.BACKGROUND_UNKNOWN
 
         self.width, self.height = self.background.get_size()
         (path, self.white_font) = self.background.get_image_path()
         self.image = pixie.read_image(path)
+
 
     def set_font(self, font_path: str) -> NoReturn:
         '''
@@ -167,6 +169,7 @@ class Interface():
         if not os.path.isfile(font_path):
             warnings.warn('Default font not found.')
         self.font = pixie.read_typeface(font_path)
+
 
     def make_font(self, size: int) -> pixie.Font:
         '''
@@ -191,6 +194,7 @@ class Interface():
         font.size = size
         return font
 
+
     def make_imagen(self) -> NoReturn:
         '''
         Draw the different parts of the final picture.
@@ -203,8 +207,8 @@ class Interface():
         tmpr = pixie.read_image(tmpr)
 
         path = pixie.Path()
-        path.rounded_rect(0.05*self.width, 0.5*self.height, self.width-(0.1*self.width),
-                          self.height-(0.45*self.height), 25, 25, 25, 25)
+        path.rounded_rect(0.05 * self.width, 0.5 * self.height, self.width - (0.1 * self.width),
+                          self.height - (0.45 * self.height), 25, 25, 25, 25)
 
         mask = pixie.Mask(self.width, self.height)
         mask.fill_path(path)
@@ -214,28 +218,26 @@ class Interface():
         blur.mask_draw(mask)
         self.image.draw(blur)
 
-        self.image.draw(icon, pixie.translate(0.1*self.width, 0.07*self.height) *
-                        pixie.scale(0.4, 0.4))
-        self.image.draw(tmpr, pixie.translate(0.5*self.width, 0.07*self.height) *
-                        pixie.scale(0.4, 0.4))
+        self.image.draw(icon, pixie.translate(0.1 * self.width, 0.07 * self.height) * pixie.scale(0.4, 0.4))
+        self.image.draw(tmpr, pixie.translate(0.5 * self.width, 0.07 * self.height) * pixie.scale(0.4, 0.4))
 
         self.image.fill_text(font=self.make_font(70),
                              text=str(self.response['temperature']) + ' °C',
                              h_align=pixie.LEFT_ALIGN,
-                             bounds=pixie.Vector2(0.2*self.width, 0.1*self.height),
-                             transform=pixie.translate(0.75*self.width, 0.15*self.height))
+                             bounds=pixie.Vector2(0.2 * self.width, 0.1 * self.height),
+                             transform=pixie.translate(0.75 * self.width, 0.15 * self.height))
 
         self.image.fill_text(font=self.make_font(30),
                              text=self.response['region'] + ', ' + self.response['country'],
                              h_align=pixie.CENTER_ALIGN,
-                             bounds=pixie.Vector2(1*self.width, 0.05*self.height),
-                             transform=pixie.translate(0*self.width, 0.52*self.height))
+                             bounds=pixie.Vector2(1 * self.width, 0.05 * self.height),
+                             transform=pixie.translate(0 * self.width, 0.52 * self.height))
 
         self.image.fill_text(font=self.make_font(30),
                              text=' ,'.join(self.response['weather_descriptions']),
                              h_align=pixie.CENTER_ALIGN,
-                             bounds=pixie.Vector2(1*self.width, 0.05*self.height),
-                             transform=pixie.translate(0*self.width, 0.58*self.height))
+                             bounds=pixie.Vector2(1 * self.width, 0.05 * self.height),
+                             transform=pixie.translate(0 * self.width, 0.58 * self.height))
 
         text = 'Wind speed: {} Km/H \nWind degree: {}°\nWind Dir: {} \nPressure: {} MB\nPrecip: {} MM'
         self.image.fill_text(font=self.make_font(20),
@@ -243,8 +245,8 @@ class Interface():
                                               self.response['wind_dir'], self.response['pressure'],
                                               self.response['precip']),
                              h_align=pixie.LEFT_ALIGN,
-                             bounds=pixie.Vector2(0.3*self.width, 0.2*self.height),
-                             transform=pixie.translate(0.10*self.width, 0.72*self.height))
+                             bounds=pixie.Vector2(0.3 * self.width, 0.2 * self.height),
+                             transform=pixie.translate(0.10 * self.width, 0.72 * self.height))
 
         text = 'Humidity: {} kPa\nCloud cover: {} okta\nFeelslike: {} °C\nUV index: {} \nVisibility: {} Km/H\n'
         self.image.fill_text(font=self.make_font(20),
@@ -252,8 +254,9 @@ class Interface():
                                               self.response['feelslike'], self.response['uv_index'],
                                               self.response['visibility']),
                              h_align=pixie.RIGHT_ALIGN,
-                             bounds=pixie.Vector2(0.35*self.width, 0.2*self.height),
-                             transform=pixie.translate(0.55*self.width, 0.72*self.height))
+                             bounds=pixie.Vector2(0.35 * self.width, 0.2 * self.height),
+                             transform=pixie.translate(0.55 * self.width, 0.72 * self.height))
+
 
     def save_imagen(self, path: str) -> NoReturn:
         '''
