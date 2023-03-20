@@ -94,6 +94,7 @@ class Database:
                                                        visibility INTEGER NOT NULL,
                                                        is_day BOOLEAN NOT NULL,
                                                        is_real_location BOOLEAN NOT NULL,
+                                                       server_time INTEGER,
                                                        FOREIGN KEY(user_id) REFERENCES users(id)
                                                       );'''
         self.__db_connection.execute(sql)
@@ -135,7 +136,7 @@ class Database:
         self.__db_connection.commit()
 
 
-    def add_register(self, data: dict, user_id: int, is_real_location: bool) -> NoReturn:
+    def add_register(self, data: dict, user_id: int, is_real_location: bool, server_time: int) -> NoReturn:
 
         '''
             Adds a new register to the database.
@@ -148,6 +149,8 @@ class Database:
                 The id of the user who made the register.
             is_real_location : bool
                 True if the register is made with real location, False otherwise.
+            server_time : int
+                The time server is running.
         '''
         cursor = self.__db_connection.cursor()
         query = '''INSERT INTO registers (user_id, localtime, lat, lon, country, region,
@@ -155,8 +158,8 @@ class Database:
                                           wind_speed, wind_degree, wind_dir,
                                           pressure, precip, humidity, cloudcover,
                                           feelslike, uv_index, visibility, is_day,
-                                          is_real_location)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+                                          is_real_location, server_time)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
         cursor.execute(query, (user_id, data['localtime'], data['lat'],
                                data['lon'], data['country'], data['region'],
                                data['temperature'], data['weather_code'],
@@ -164,7 +167,8 @@ class Database:
                                data['wind_speed'], data['wind_degree'], data['wind_dir'],
                                data['pressure'], data['precip'], data['humidity'],
                                data['cloudcover'], data['feelslike'], data['uv_index'],
-                               data['visibility'], data['is_day'], is_real_location))
+                               data['visibility'], data['is_day'], is_real_location,
+                               server_time))
         self.__db_connection.commit()
 
 
@@ -183,7 +187,7 @@ class Database:
                 A list of dictionaries containing register data.
         '''
         cursor = self.__db_connection.cursor()
-        query = 'SELECT * FROM registers INNER JOIN users ON registers.user_id=users.id WHERE localtime >= ?'
+        query = 'SELECT * FROM registers INNER JOIN users ON registers.user_id=users.id WHERE server_time >= ?'
         result = cursor.execute(query, (epoch,)).fetchall()
 
         registers = []
@@ -195,7 +199,8 @@ class Database:
                         'wind_degree': row[11], 'wind_dir': row[12], 'pressure': row[13],
                         'precip': row[14], 'humidity': row[15], 'cloudcover': row[16],
                         'feelslike': row[17], 'uv_index': row[18], 'visibility': row[19],
-                        'is_day': row[20], 'is_real_location': row[21], 'username': row[26]}
+                        'is_day': row[20], 'is_real_location': row[21], 'username': row[26],
+                        'server_time': row[27]}
             registers.append(register)
         return registers
 
@@ -238,7 +243,11 @@ class Database:
         map = folium.Map(location=[0, 0], zoom_start=2)
         for register in registers:
             popup_text = f"{register['username']}, {register['weather_descriptions'][0]}, {register['temperature']}°C"
-            folium.Marker(location=[register['lat'], register['lon']], popup=popup_text).add_to(map)
+            if register['is_real_location']:
+                icon = folium.Icon(color="green")
+            else:
+                icon = folium.Icon(color="red")
+            folium.Marker(location=[register['lat'], register['lon']], popup=popup_text, icon=icon).add_to(map)
         map.save(opath + time.strftime('%Y-%m-%d', time.localtime(epoch)) + '_map.html')
 
         # Create some statistics about the data

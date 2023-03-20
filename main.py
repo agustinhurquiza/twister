@@ -1,14 +1,42 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import logging
 import asyncio
+import time
 import os
+import sys
 from typing import NoReturn
 from interface import Interface
 from weather_api import WeatherApi
+from data_base import Database
 from telegram_bot import TelegramBot, MensaggeType
 import argparse
+import signal
 
 
-async def main() -> NoReturn:
+EXTENSION = '.png'
+TEMP_FILE = '.tmp/'
+ERROR_CODE_CITY_NOT_FOUND = 615
+
+def signal_handler(signal, frame):
+    raise KeyboardInterrupt
+    quit()
+
+
+def parser():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--nodatabase', action='store_true',
+                        help='Disable database tracking')
+
+    parser.add_argument('--showstat', action='store_true',
+                        help='Show statistics at the end of the program.')
+
+    args = parser.parse_args()
+    return args
+
+
+async def main(db: Database, track: bool) -> NoReturn:
     logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
                         level=logging.INFO)
     logger = logging.getLogger('Telegram Bot')
@@ -19,6 +47,13 @@ async def main() -> NoReturn:
 
     while True:
         message = await bot.wait_menssage()
+        is_real_location = False
+
+        if track:
+            user = bot.get_current_usser()
+            if not db.user_exist(user['id']):
+                db.add_user(user)
+
         if message is MensaggeType.MENSAGGE_TYPE_HELP:
             await bot.send_help()
         elif message is MensaggeType.MENSAGGE_TYPE_START:
@@ -31,6 +66,7 @@ async def main() -> NoReturn:
                 lon = str(bot.current_update.message.location.longitude)
                 query = lat + ',' + lon
             if message is MensaggeType.MENSAGGE_TYPE_PLACE:
+                is_real_location = True
                 try:
                     query = bot.current_update.message.text.split('/place ')[1]
                 except IndexError as e:
@@ -44,7 +80,7 @@ async def main() -> NoReturn:
             try:
                 pass
             except WeatherStackAPIError as error:
-                if error.code == 615:
+                if error.code == ERROR_CODE_CITY_NOT_FOUND:
                     await bot.send_message('City dont found, please try again.')
                     continue
                 else:
@@ -54,22 +90,35 @@ async def main() -> NoReturn:
 
             weather = wapi.get_weather(query)
             weather = wapi.parser_request()
-            interface = Interface(weather)
+            if track:
+                db.add_register(weather, user['id'], is_real_location, time.time())
 
+            interface = Interface(weather)
             interface.set_background()
             interface.make_imagen()
-            interface.save_imagen('.tmp/' + str(count) + '.png')
-            await bot.send_weather('.tmp/' + str(count) + '.png')
+            interface.save_imagen(TEMP_FILE + str(count) + EXTENSION)
+            await bot.send_weather(TEMP_FILE + str(count) + EXTENSION)
             wapi.clean_request()
             interface = None
             count += 1
 
 
 if __name__ == "__main__":
-    if not os.path.exists('.tmp'):
-        os.makedirs('.tmp')
+    args = parser()
+    db = Database()
+    signal.signal(signal.SIGINT, signal_handler)
+
+    start_time = int(time.time())
+
+    if not os.path.exists(TEMP_FILE):
+        os.makedirs(TEMP_FILE)
     try:
-        asyncio.run(main())
-    except KeyboardInterrupt:  # Ignore exception when Ctrl-C is pressed
-        if os.path.exists('.tmp'):
-            os.remove('.tmp')
+        asyncio.run(main(db, not args.nodatabase))
+    except KeyboardInterrupt:
+        if os.path.exists(TEMP_FILE):
+            os.system('rm -r ' + TEMP_FILE)
+        if args.showstat and not args.nodatabase:
+            print('\n*********************************************************')
+            db.draw_locations_in_a_map_and_statistics(start_time)
+            print('*********************************************************\n')
+            quit()
