@@ -1,4 +1,7 @@
+# Macos files
 *.DS_Store
+
+# Data base
 *.db
 
 # Byte-compiled / optimized / DLL files

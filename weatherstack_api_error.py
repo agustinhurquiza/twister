@@ -1,6 +1,6 @@
 
 class WeatherStackAPIError(Exception):
-    """
+    '''
     Custom Exception for WeatherStack API errors.
 
     Attributes
@@ -11,10 +11,10 @@ class WeatherStackAPIError(Exception):
             The type of error that was returned by the API call.
         info : str
             A detailed error message that was returned by the API call.
-    """
+    '''
 
     def __init__(self, code: int, error_type: str, info: str):
-        """
+        '''
         Initializes a new instance of the WeatherStackAPIError class.
 
         Parameters
@@ -25,7 +25,7 @@ class WeatherStackAPIError(Exception):
                 str The type of error that was returned by the API call.
             info : str
                 A detailed error message that was returned by the API call.
-        """
+        '''
         self.code = code
         self.error_type = error_type
         self.info = info

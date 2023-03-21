@@ -5,9 +5,9 @@ import warnings
 import os
 
 '''
-    Constants
-    ---------
-        The default background path.
+Constants
+---------
+    The default background path.
 '''
 DEFAULT_BACKGROUND_PATH = 'src/img/backgrounds/'
 
@@ -15,9 +15,9 @@ if not os.path.isdir(DEFAULT_BACKGROUND_PATH):
     warnings.warn('Background directory not found.')
 
 '''
-    Constants
-    ---------
-        The constants used in the Background Class.
+Constants
+---------
+    The constants used in the Background Class.
 '''
 BACKGROUND_WIDTH = 800
 BACKGROUND_HEIGHT = 656
@@ -58,6 +58,7 @@ class Background(Enum):
     BACKGROUND_FOG = 8
     __path__ = DEFAULT_BACKGROUND_PATH
 
+
     def set_path(self, path: str) -> NoReturn:
         '''
         Sets a different path for the background images.
@@ -80,7 +81,7 @@ class Background(Enum):
         -------
             str
                 The absolute path of the background directory.
-    '''
+        '''
         return os.path.abspath(self.__path__)
 
 

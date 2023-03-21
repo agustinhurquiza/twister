@@ -89,7 +89,7 @@ class Interface():
     '''
 
 
-    def __init__(self, response: dict, font=INTERFACE_DEFAULT_FONT) -> NoReturn:
+    def __init__(self, response: dict, font: str = INTERFACE_DEFAULT_FONT) -> NoReturn:
         '''
         Constructs all the necessary attributes for the Interface object.
 
@@ -126,7 +126,6 @@ class Interface():
     def set_background(self) -> NoReturn:
         '''
         Set the background image.
-
         '''
         if self.response['weather_code'] in INTERFACE_SNOW_CODES:
             self.background = Background.BACKGROUND_SNOW
@@ -164,7 +163,6 @@ class Interface():
         ----------
             font_path : str
                 Path for the font.
-
         '''
         if not os.path.isfile(font_path):
             warnings.warn('Default font not found.')
@@ -198,7 +196,6 @@ class Interface():
     def make_imagen(self) -> NoReturn:
         '''
         Draw the different parts of the final picture.
-
         '''
         icon = self.wsymbol.get_symbol_path_from_code(self.response['weather_code'],
                                                       self.response['is_day'])

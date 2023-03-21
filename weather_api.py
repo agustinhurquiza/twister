@@ -51,15 +51,15 @@ class WeatherApi:
 
         Parameters
         ----------
-        unit str :
-            Unit of measurement to use for temperature. Default is 'm' for metric.
-            Other options are 's' for scientific and 'f' for Fahrenheit.
-        http bool :
-            Whether to use http or https for the API call. Default is True.
+            unit str :
+                Unit of measurement to use for temperature. Default is 'm' for metric.
+                Other options are 's' for scientific and 'f' for Fahrenheit.
+            http bool :
+                Whether to use http or https for the API call. Default is True.
 
         Raises
         ------
-        AssertionError: if the unit parameter is not one of 'm', 's', or 'f'.
+            AssertionError: if the unit parameter is not one of 'm', 's', or 'f'.
         '''
         assert unit in ['m', 's', 'f'], 'Unit not available.'
 
@@ -117,7 +117,6 @@ class WeatherApi:
         ----------
             query : str
                 The query string to retrieve weather data for.
-
         '''
         access_key = os.environ.get('WEATHERSTACK_TOKEN')
         params = {'query': query,

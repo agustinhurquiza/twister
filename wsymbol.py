@@ -61,7 +61,7 @@ class WSymbol:
     '''
 
 
-    def __init__(self, path=WSYMBOL_DEFAULT_PATH, codes=WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
+    def __init__(self, path: str =WSYMBOL_DEFAULT_PATH, codes: str = WSYMBOL_DEFAULT_CONDITION_CODES_PATH):
         '''
         Constructs all the necessary attributes for the WSymbol object.
 
@@ -72,7 +72,6 @@ class WSymbol:
             codes : str
                 An XML file with the paths to the different icons. You can download it from
                 https://weatherstack.com/site_resources/weatherstack-weather-condition-codes.zip
-
         '''
         if not os.path.isdir(path):
             warnings.warn('WSymbol path not found.')
@@ -82,7 +81,7 @@ class WSymbol:
         self.parser_condition_codes(codes)
 
 
-    def parser_condition_codes(self, codes_file=WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> NoReturn:
+    def parser_condition_codes(self, codes_file: str = WSYMBOL_DEFAULT_CONDITION_CODES_PATH) -> NoReturn:
         '''
         Load an XML file with the weather codes.
 
@@ -91,7 +90,6 @@ class WSymbol:
             codes_file : str
                 An XML file with the paths to the different icons. You can download it from
                 https://weatherstack.com/site_resources/weatherstack-weather-condition-codes.zip
-
         '''
         if not os.path.isfile(codes_file):
             warnings.warn('Condition codes not found.')
@@ -163,7 +161,6 @@ class WSymbol:
         ----------
             path : str
                 The new path for the directory of the wsymbol images.
-
         '''
         if not os.path.isdir(path):
             warnings.warn('Wsymbol path not found.')

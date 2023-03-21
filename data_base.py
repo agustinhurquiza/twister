@@ -7,35 +7,35 @@ import matplotlib.pyplot as plt
 
 class Database:
     '''
-        Class that encapsulates the database operations.
+    Class that encapsulates the database operations.
 
-        Attributes
-        ----------
-            __DB_LOCATION : str
-                The file path where the database is stored.
-            __db_connection : sqlite3.Connection
-                Object that uses to interact with the SQLite database.
+    Attributes
+    ----------
+        __DB_LOCATION : str
+            The file path where the database is stored.
+        __db_connection : sqlite3.Connection
+            Object that uses to interact with the SQLite database.
 
-        Methods
-        -------
-            __init__() -> NoReturn:
-                Creates a new database connection and initializes the tables.
-            __del__() -> NoReturn:
-                Closes the database connection when the object is destroyed.
-            __create_tabales__() -> NoReturn:
-                Initializes the tables if they do not exist.
-            user_exist(id: int) -> bool:
-                Returns True if the user with the given id exists in the database, False otherwise.
-            add_user(user: dict) -> NoReturn:
-                Inserts a new user into the database.
-            add_register(data: dict, user_id: int, is_real_location: bool) -> NoReturn:
-                Inserts a new register into the database.
-            get_registers_from_epoch(epoch: int) -> list:
-                Returns a list of registers since a specific epoch.
-            count_users() -> int:
-                Returns the number of users in the database.
-            draw_locations_in_a_map_and_statistics(epoch: int=0, opath: str='stat/') -> NoReturn:
-                Creates a map with registered locations and some statistics about the data.
+    Methods
+    -------
+        __init__() -> NoReturn:
+            Creates a new database connection and initializes the tables.
+        __del__() -> NoReturn:
+            Closes the database connection when the object is destroyed.
+        __create_tabales__() -> NoReturn:
+            Initializes the tables if they do not exist.
+        user_exist(id: int) -> bool:
+            Returns True if the user with the given id exists in the database, False otherwise.
+        add_user(user: dict) -> NoReturn:
+            Inserts a new user into the database.
+        add_register(data: dict, user_id: int, is_real_location: bool) -> NoReturn:
+            Inserts a new register into the database.
+        get_registers_from_epoch(epoch: int) -> list:
+            Returns a list of registers since a specific epoch.
+        count_users() -> int:
+            Returns the number of users in the database.
+        draw_locations_in_a_map_and_statistics(epoch: int=0, opath: str='stat/') -> NoReturn:
+            Creates a map with registered locations and some statistics about the data.
     '''
 
     __DB_LOCATION = 'data_base.db'
@@ -43,7 +43,7 @@ class Database:
 
     def __init__(self) -> NoReturn:
         '''
-            Creates a new database connection and initializes the tables.
+        Creates a new database connection and initializes the tables.
         '''
         self.__db_connection = sqlite3.connect(self.__DB_LOCATION)
         self.__create_tabales__()
@@ -51,14 +51,14 @@ class Database:
 
     def __del__(self) -> NoReturn:
         '''
-            Closes the database connection when the object is destroyed.
+        Closes the database connection when the object is destroyed.
         '''
         self.__db_connection.close()
 
 
     def __create_tabales__(self) -> NoReturn:
         '''
-            Initializes the tables if they do not exist.
+        Initializes the tables if they do not exist.
         '''
 
         self.__db_connection.execute('PRAGMA foreign_keys = 1')
@@ -102,16 +102,16 @@ class Database:
 
     def user_exist(self, id: int) -> bool:
         '''
-            Checks if a user with given id exists in the database.
+        Checks if a user with given id exists in the database.
 
-            Parameters
-            ----------
-                id : int
-                    The id of the user to be checked.
-            Returns
-            -------
-                bool
-                    True if user exists, False otherwise.
+        Parameters
+        ----------
+            id : int
+                The id of the user to be checked.
+        Returns
+        -------
+            bool
+                True if user exists, False otherwise.
         '''
         cursor = self.__db_connection.cursor()
         query = 'SELECT COUNT(*) FROM users WHERE id=?'
@@ -121,12 +121,12 @@ class Database:
 
     def add_user(self, user: dict) -> NoReturn:
         '''
-            Adds a new user to the database.
+        Adds a new user to the database.
 
-            Parameters
-            ----------
-                user: int
-                    A dictionary containing user data.
+        Parameters
+        ----------
+            user: int
+                A dictionary containing user data.
         '''
         cursor = self.__db_connection.cursor()
         query = '''INSERT INTO users (id, is_bot, first_name, last_name, username, language_code)
@@ -139,10 +139,10 @@ class Database:
     def add_register(self, data: dict, user_id: int, is_real_location: bool, server_time: int) -> NoReturn:
 
         '''
-            Adds a new register to the database.
+        Adds a new register to the database.
 
-            Parameters
-            ----------
+        Parameters
+        ----------
             data : dict
                 A dictionary containing register data.
             user_id : int
@@ -174,15 +174,15 @@ class Database:
 
     def get_registers_from_epoch(self, epoch: int) -> list:
         '''
-            Returns a list of registers since a specific epoch.
+        Returns a list of registers since a specific epoch.
 
-            Parameters
-            ----------
+        Parameters
+        ----------
             epoch : int
                 The epoch time from which registers are to be retrieved.
 
-            Returns
-            -------
+        Returns
+        -------
             list
                 A list of dictionaries containing register data.
         '''
@@ -207,10 +207,10 @@ class Database:
 
     def count_users(self) -> int:
         '''
-            Returns the number of users in the database.
+        Returns the number of users in the database.
 
-            Returns
-            -------
+        Returns
+        -------
             int
                 Number of users in the data base.
         '''
@@ -221,18 +221,17 @@ class Database:
 
 
     def draw_locations_in_a_map_and_statistics(self, epoch: int = 0, opath: str = 'stat/') -> NoReturn:
-        """
-            This method creates a map with registered locations and some statistics about the data.
+        '''
+        This method creates a map with registered locations and some statistics about the data.
 
-            Parameters
-            ----------
+        Parameters
+        ----------
             epoch : int
                 The epoch timestamp from which to retrieve registers. If not specified,
                 it defaults to the current timestamp minus one day (86400 seconds).
             opath : str
                 The path where to save the output files. If not specified, it defaults to 'stat/'.
-
-        """
+        '''
         if epoch == 0:
             epoch = int(time.time()) - 86400
         if epoch < 0:
@@ -244,11 +243,11 @@ class Database:
         for register in registers:
             popup_text = f"{register['username']}, {register['weather_descriptions'][0]}, {register['temperature']}°C"
             if register['is_real_location']:
-                icon = folium.Icon(color="green")
+                icon = folium.Icon(color='green')
             else:
-                icon = folium.Icon(color="red")
+                icon = folium.Icon(color='red')
             folium.Marker(location=[register['lat'], register['lon']], popup=popup_text, icon=icon).add_to(map)
-        map.save(opath + time.strftime('%Y-%m-%d', time.localtime(epoch)) + '_map.html')
+        map.save(opath + time.strftime("%Y-%m-%d", time.localtime(epoch)) + '_map.html')
 
         # Create some statistics about the data
         temperatures = [register['temperature'] for register in registers]
