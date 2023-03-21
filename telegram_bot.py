@@ -186,8 +186,9 @@ class TelegramBot:
                 break
 
         type = await self.filter_update(self.current_update)
-        user = self.current_update.message.from_user.username
-        self.logger.info(f'New message from: {user} type: {type}')
+        if not type is  MensaggeType.MENSAGGE_TYPE_NO_SUPPORT:
+            user = self.current_update.message.from_user.username
+            self.logger.info(f'New message from: {user} type: {type}')
         return type
 
 
@@ -217,22 +218,22 @@ class TelegramBot:
 
         Parameters:
         -----------
-        img_path: str
-            The path of the image containing the weather information.
+            img_path: str
+                The path of the image containing the weather information.
         '''
         self.update_id += 1
         await self.current_update.message.reply_photo(photo=img_path)
         user = self.current_update.message.from_user.username
         self.logger.info(f'It has replied to: {user}.')
 
-    async def send_message(self, message) -> NoReturn:
+    async def send_message(self, message: str) -> NoReturn:
         '''
         This method sends the current weather to the user.
 
         Parameters:
         -----------
-        img_path: str
-            The path of the image containing the weather information.
+            img_path: str
+                The path of the image containing the weather information.
         '''
         self.update_id += 1
         await self.current_update.message.reply_text(message)
@@ -246,15 +247,15 @@ class TelegramBot:
 
         Returns:
         --------
-        dict :
-            The dictionary includes the following keys:
-                user = {
-                    id : int,
-                    first_name: str,
-                    last_name: str or None,
-                    username: str or None,
-                    language_code: str or None
-                }
+            dict :
+                The dictionary includes the following keys:
+                    user = {
+                        id : int,
+                        first_name: str,
+                        last_name: str or None,
+                        username: str or None,
+                        language_code: str or None
+                    }
         '''
         return self.current_update.message.from_user.to_dict()
 

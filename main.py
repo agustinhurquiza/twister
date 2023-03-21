@@ -13,17 +13,43 @@ from telegram_bot import TelegramBot, MensaggeType
 import argparse
 import signal
 
+'''
+This module includes the main function and auxiliary functions to run the Telegram bot.
+
+Usage:
+-----
+    To run this module, use the following command:
+        $ python bot.py [options]
+
+Options:
+-------
+    --nodatabase: Disable database tracking
+    --showstat: Show statistics at the end of the program.
+
+Functions:
+---------
+    signal_handler(signal, frame) -> NoReturn:
+        Handle keyboard interrupts by raising a KeyboardInterrupt.
+    parser() -> NoReturn:
+        Parses command-line arguments.
+    main(db: Database, track: bool) -> NoReturn:
+        The main function that runs the Telegram bot.
+        It receives the Database instance and a boolean flag to indicate whether to track messages in the database.
+        It starts an infinite loop to listen for incoming messages and handle them accordingly.
+'''
+
 
 EXTENSION = '.png'
 TEMP_FILE = '.tmp/'
 ERROR_CODE_CITY_NOT_FOUND = 615
 
-def signal_handler(signal, frame):
+
+def signal_handler(signal: signal.Signals, frame) -> NoReturn:
     raise KeyboardInterrupt
     quit()
 
 
-def parser():
+def parser() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--nodatabase', action='store_true',
@@ -37,7 +63,7 @@ def parser():
 
 
 async def main(db: Database, track: bool) -> NoReturn:
-    logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
     logger = logging.getLogger('Telegram Bot')
 
@@ -48,11 +74,6 @@ async def main(db: Database, track: bool) -> NoReturn:
     while True:
         message = await bot.wait_menssage()
         is_real_location = False
-
-        if track:
-            user = bot.get_current_usser()
-            if not db.user_exist(user['id']):
-                db.add_user(user)
 
         if message is MensaggeType.MENSAGGE_TYPE_HELP:
             await bot.send_help()
@@ -88,6 +109,11 @@ async def main(db: Database, track: bool) -> NoReturn:
                                             We apologize for any inconvenience this may have caused.')
                 raise error
 
+            if track:
+                user = bot.get_current_usser()
+                if not db.user_exist(user['id']):
+                    db.add_user(user)
+
             weather = wapi.get_weather(query)
             weather = wapi.parser_request()
             if track:
@@ -103,7 +129,7 @@ async def main(db: Database, track: bool) -> NoReturn:
             count += 1
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     args = parser()
     db = Database()
     signal.signal(signal.SIGINT, signal_handler)
