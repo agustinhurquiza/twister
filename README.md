@@ -87,7 +87,7 @@ classDiagram
       Interface <.. main
       Database <.. main
       Background <|-- Enum
-      MensaggeType <|-- MensaggeType
+      MensaggeType <|-- Enum
 
       class Enum{
       }
