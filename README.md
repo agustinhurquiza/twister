@@ -1,6 +1,8 @@
 # Twister
 ## _The best Telegram bot for get weather_
 
+## Disclaimer
+
 This project was created for demonstrate and improvement my abilities in the differents areas like:
 - Python
 - Security
@@ -67,7 +69,7 @@ Below, I have listed the steps to run the program:
 
 First you need enable the tracking see (How run).
 
-Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests
+Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests. The files will save in stat directory.
 
 ![map](https://github.com/agustinhurquiza/twister/blob/main/examples/map.png)
 
@@ -76,24 +78,102 @@ Once you have pressed Ctrl-C, the Python program will proceed to calculate and d
 
 ```mermaid
 classDiagram
-      Animal <|-- Duck
-      Animal <|-- Fish
-      Animal <|-- Zebra
-      Animal : +int age
-      Animal : +String gender
-      Animal: +isMammal()
-      Animal: +mate()
-      class Duck{
-          +String beakColor
-          +swim()
-          +quack()
+      WeatherStackAPIError <|-- WeatherApi
+      WSymbol <|-- Interface
+      Background <|-- Interface
+      MensaggeType <|-- TelegramBot
+      WeatherApi <|-- main
+      TelegramBot <|-- main
+      Interface <|-- main
+      Database <|-- main
+
+      class WSymbol{
+          +__path__ : str
+          +codes_dict : dict
+          +parser_condition_codes()
+          +get_symbol_path_from_code()
+          +get_symbol_temp_from_code()
+          +set_path()
+          +get_abs_path()
+          +get_size()
       }
-      class Fish{
-          -int sizeInFeet
-          -canEat()
+
+      class WeatherStackAPIError{
+        +code : int
+        +error_type : str
+        +info : str
       }
-      class Zebra{
-          +bool is_wild
-          +run()
+
+      class WeatherApi{
+        +http : bool
+        +domain : str
+        +unit : char
+        +request : dict
+        +__init__()
+        +base_url()
+        +check_query()
+        +get_weather()
+        +parser_request()
+        +clean_request()
+        +raise_weather_stack_exception()
       }
+
+      class MensaggeType{
+      }
+
+      class TelegramBot{
+        +bot : telegram.Bot
+        +update_id : int
+        +updates : (Update)
+        +logger : Logger
+        +current_update : Update
+        +__init__()
+        +filter_update()
+        +wait_message()
+        +send_help()
+        +send_start()
+        +send_weather()
+        +get_current_user()
+        +ignore_current_message()
+      }
+
+      class Interface{
+        +response : dict
+        +font : pixie.Font
+        +background : Background
+        +wsymbol : WSymbol
+        +width : int
+        +height : int
+        +image : pixie.Image
+        +white_font : bool
+        +__init__()
+        +set_background()
+        +set_font()
+        +make_font()
+        +make_image()
+        +save_image()
+      }
+
+      class Database{
+        +__DB_LOCATION : str
+        +__db_connection : sqlite3.Connection
+        +__init__()
+        +__del__()
+        +__create_tabales__()
+        +user_exist()
+        +add_user()
+        +add_register()
+        +get_registers_from_epoch()
+        +count_users()
+        +draw_locations_in_a_map_and_statistics()
+      }
+
+      class Background{
+        +__path__ : str
+        +set_path(
+        +get_abs_path()
+        +get_image_path()
+        +get_size()
+      }
+
 ```
