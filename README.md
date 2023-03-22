@@ -84,8 +84,8 @@ classDiagram
       MensaggeType <|-- TelegramBot
       WeatherApi <|-- main
       TelegramBot <|-- main
-      Interface <|-- main
-      Database <|-- main
+      Interface <.. main
+      Database <.. main
 
       class WSymbol{
           +__path__ : str
