@@ -64,7 +64,7 @@ class Interface():
             The height of the image.
         image : pixie.Image
             The edited image.
-        white_font:
+        white_font : bool
             True if the background is black, False otherwise.
 
     Methods

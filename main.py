@@ -9,7 +9,7 @@ from typing import NoReturn
 from interface import Interface
 from weather_api import WeatherApi
 from data_base import Database
-from telegram_bot import TelegramBot, MensaggeType
+from telegram_bot import TelegramBot, MessageType
 import argparse
 import signal
 
@@ -75,18 +75,18 @@ async def main(db: Database, track: bool) -> NoReturn:
         message = await bot.wait_menssage()
         is_real_location = False
 
-        if message is MensaggeType.MENSAGGE_TYPE_HELP:
+        if message is MessageType.MENSAGGE_TYPE_HELP:
             await bot.send_help()
-        elif message is MensaggeType.MENSAGGE_TYPE_START:
+        elif message is MessageType.MENSAGGE_TYPE_START:
             await bot.send_start()
-        elif message is MensaggeType.MENSAGGE_TYPE_NO_SUPPORT:
+        elif message is MessageType.MENSAGGE_TYPE_NO_SUPPORT:
             bot.ignore_current_message()
         else:
-            if message is MensaggeType.MENSAGGE_TYPE_LOCATION:
+            if message is MessageType.MENSAGGE_TYPE_LOCATION:
                 lat = str(bot.current_update.message.location.latitude)
                 lon = str(bot.current_update.message.location.longitude)
                 query = lat + ',' + lon
-            if message is MensaggeType.MENSAGGE_TYPE_PLACE:
+            if message is MessageType.MENSAGGE_TYPE_PLACE:
                 is_real_location = True
                 try:
                     query = bot.current_update.message.text.split('/place ')[1]
