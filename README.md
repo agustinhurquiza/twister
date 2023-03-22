@@ -33,24 +33,24 @@ Also the bot support two commands more:
 
 - **help:**
     > ************************* The twister Bot *************************
-    Usage:
-    \* /help: Get help mensagge.
-    \* /start: Get information about this Bot.
-    \* /place city: Get current weather in that city.
-    \* Location: Get current weather in your location.
+    > Usage:
+    > \* /help: Get help mensagge.
+    > \* /start: Get information about this Bot.
+    > \* /place city: Get current weather in that city.
+    > \* Location: Get current weather in your location.
 
 - **start:**
     > ************************* The twister Bot *************************
-    It uses to obtain the weather in the different cities of the world.
-    This bot may be tracked your data, username, location, lenguaje, etc.
-    Author: Agustin Urquiza
-    agustin.h.urquiza@gmail.com
+    > It uses to obtain the weather in the different cities of the world.
+    > This bot may be tracked your data, username, location, lenguaje, etc.
+    > Author: Agustin Urquiza
+    > agustin.h.urquiza@gmail.com
 
 ## Statitics
 
 After you presed ctrl-c the python program calculate and show two plots, numbers of requests and clients, and a map with the requests locations.
 
-!![map]('stat/2023-03-13_map.html')
+![map]('./stat/2023-03-13_map.html')
 
 ## Architecture
 
