@@ -77,7 +77,10 @@ Once you have pressed Ctrl-C, the Python program will proceed to calculate and d
 ## Architecture
 
 ```mermaid
+
 classDiagram
+      Background <|-- Enum
+      MensaggeType <|-- Enum
       WeatherStackAPIError <.. WeatherApi
       WSymbol <.. Interface
       Background <.. Interface
@@ -86,16 +89,14 @@ classDiagram
       TelegramBot <.. main
       Interface <.. main
       Database <.. main
-      Background <|-- Enum
-      MensaggeType <|-- Enum
 
       class Enum{
       }
 
-      class MensaggeType{
+      class MensaggeType {
       }
 
-      class WSymbol{
+      class WSymbol {
           +__path__ : str
           +codes_dict : dict
           +parser_condition_codes()
