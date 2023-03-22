@@ -87,11 +87,6 @@ classDiagram
       Interface <|-- main
       Database <|-- main
 
-
-      file main{
-
-      }
-
       class WSymbol{
           +__path__ : str
           +codes_dict : dict
