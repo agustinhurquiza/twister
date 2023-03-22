@@ -78,15 +78,20 @@ Once you have pressed Ctrl-C, the Python program will proceed to calculate and d
 
 ```mermaid
 classDiagram
-      WeatherStackAPIError <|-- WeatherApi
-      WSymbol <|-- Interface
-      Background <|-- Interface
-      MensaggeType <|-- TelegramBot
-      WeatherApi <|-- main
-      TelegramBot <|-- main
-      Interface <|-- main
-      Database <|-- main
+      WeatherStackAPIError <.. WeatherApi
+      WSymbol <.. Interface
+      Background <.. Interface
+      MensaggeType <.. TelegramBot
+      WeatherApi <.. main
+      TelegramBot <.. main
+      Interface <.. main
+      Database <.. main
+      Enum <|-- MensaggeType
+      Enum <|-- Background
+      Exception <|-- WeatherStackAPIError
 
+      class Exception{}
+    
       class WSymbol{
           +__path__ : str
           +codes_dict : dict
@@ -97,6 +102,8 @@ classDiagram
           +get_abs_path()
           +get_size()
       }
+
+      class Enum{}
 
       class WeatherStackAPIError{
         +code : int
