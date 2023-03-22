@@ -90,8 +90,11 @@ classDiagram
       Enum <|-- Background
       Exception <|-- WeatherStackAPIError
 
-      class Exception{}
-    
+      class Exception{
+      }
+
+      file main{}
+
       class WSymbol{
           +__path__ : str
           +codes_dict : dict
