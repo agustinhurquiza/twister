@@ -23,7 +23,7 @@ class WeatherApi:
 
     Methods
     -------
-        init(unit: str = 'm', http: bool = True) -> NoReturn:
+        __init__(unit: str = 'm', http: bool = True) -> NoReturn:
             Constructor for the WeatherApi class.
         base_url(self) -> str:
             Returns the base url for the API call based on http and domain values.

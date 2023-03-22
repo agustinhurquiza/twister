@@ -72,19 +72,44 @@ First you need enable the tracking see (How run).
 Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests. The files will save in stat directory.
 
 ![map](https://github.com/agustinhurquiza/twister/blob/main/examples/map.png)
+![Statitics](https://github.com/agustinhurquiza/twister/blob/main/stat/2023-03-13_statistics.png)
 
 
 ## Architecture
+
+### MessageType
+Enum use in TelegramBot class. Representing the different kind of message available.
+
+### WSymbol
+This class handles the icons used in the different weather conditions.
+
+### WeatherStackAPIError
+Custom Exception for WeatherStack API errors.
+
+### WeatherApi
+This module provides a WeatherApi class for fetching weather data from the WeatherStack API.
+
+### TelegramBot
+This class implements a Telegram bot that provides the weather in different cities of the world.
+
+### Interface
+A class used for making an image using Pixie.
+
+### Database
+Class that encapsulates the database operations.
+
+### Background
+This class is an enum for different backgrounds.
 
 ```mermaid
 
 classDiagram
       Background <|-- Enum
-      MensaggeType <|-- Enum
+      MessageType <|-- Enum
       WeatherStackAPIError <.. WeatherApi
       WSymbol <.. Interface
       Background <.. Interface
-      MensaggeType <.. TelegramBot
+      MessageType <.. TelegramBot
       WeatherApi <.. main
       TelegramBot <.. main
       Interface <.. main
@@ -92,11 +117,9 @@ classDiagram
 
       class Enum{
       }
-
-      class MensaggeType {
+      class MessageType{
       }
-
-      class WSymbol {
+      class WSymbol{
           +__path__ : str
           +codes_dict : dict
           +parser_condition_codes()
@@ -106,83 +129,73 @@ classDiagram
           +get_abs_path()
           +get_size()
       }
-
       class WeatherStackAPIError{
-        +code : int
-        +error_type : str
-        +info : str
+          +code : int
+          +error_type : str
+          +info : str
       }
-
       class WeatherApi{
-        +http : bool
-        +domain : str
-        +unit : char
-        +request : dict
-        +__init__()
-        +base_url()
-        +check_query()
-        +get_weather()
-        +parser_request()
-        +clean_request()
-        +raise_weather_stack_exception()
+          +http : bool
+          +domain : str
+          +unit : char
+          +request : dict
+          +__init__()
+          +base_url()
+          +check_query()
+          +get_weather()
+          +parser_request()
+          +clean_request()
+          +raise_weather_stack_exception()
       }
-
-      class MensaggeType{
-      }
-
       class TelegramBot{
-        +bot : telegram.Bot
-        +update_id : int
-        +updates : (Update)
-        +logger : Logger
-        +current_update : Update
-        +__init__()
-        +filter_update()
-        +wait_message()
-        +send_help()
-        +send_start()
-        +send_weather()
-        +get_current_user()
-        +ignore_current_message()
+          +bot : telegram.Bot
+          +update_id : int
+          +updates : (Update)
+          +logger : Logger
+          +current_update : Update
+          +__init__()
+          +filter_update()
+          +wait_message()
+          +send_help()
+          +send_start()
+          +send_weather()
+          +get_current_user()
+          +ignore_current_message()
       }
-
       class Interface{
-        +response : dict
-        +font : pixie.Font
-        +background : Background
-        +wsymbol : WSymbol
-        +width : int
-        +height : int
-        +image : pixie.Image
-        +white_font : bool
-        +__init__()
-        +set_background()
-        +set_font()
-        +make_font()
-        +make_image()
-        +save_image()
+          +response : dict
+          +font : pixie.Font
+          +background : Background
+          +wsymbol : WSymbol
+          +width : int
+          +height : int
+          +image : pixie.Image
+          +white_font : bool
+          +__init__()
+          +set_background()
+          +set_font()
+          +make_font()
+          +make_image()
+          +save_image()
       }
-
       class Database{
-        +__DB_LOCATION : str
-        +__db_connection : sqlite3.Connection
-        +__init__()
-        +__del__()
-        +__create_tabales__()
-        +user_exist()
-        +add_user()
-        +add_register()
-        +get_registers_from_epoch()
-        +count_users()
-        +draw_locations_in_a_map_and_statistics()
+          +__DB_LOCATION : str
+          +__db_connection : sqlite3.Connection
+          +__init__()
+          +__del__()
+          +__create_tabales__()
+          +user_exist()
+          +add_user()
+          +add_register()
+          +get_registers_from_epoch()
+          +count_users()
+          +draw_locations_in_a_map_and_statistics()
       }
-
       class Background{
-        +__path__ : str
-        +set_path(
-        +get_abs_path()
-        +get_image_path()
-        +get_size()
+          +__path__ : str
+          +set_path(
+          +get_abs_path()
+          +get_image_path()
+          +get_size()
       }
-
 ```

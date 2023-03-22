@@ -50,7 +50,7 @@ agustin.h.urquiza@gmail.com
 ***************************************'''
 
 
-class MensaggeType(Enum):
+class MessageType(Enum):
     '''
     Enum use in TelegramBot class. Representing the different kind of mensagge
     available.
@@ -87,10 +87,10 @@ class TelegramBot:
     -------
         __init__(logger) -> NoReturn:
             Initializes the class and sets up the telegram bot.
-        filter_update(update) -> MensaggeType:
+        filter_update(update) -> MessageType:
             Filters the updates received by the bot and determines the type of
             message received.
-        wait_message() -> MensaggeType:
+        wait_message() -> MessageType:
             Waits for a new message from the user and returns the type of message received.
         send_help() -> NoReturn:
             Sends a help message to the user.
@@ -122,7 +122,7 @@ class TelegramBot:
         self.logger.info('Listening for new messages...')
 
 
-    async def filter_update(self, update: Update) -> MensaggeType:
+    async def filter_update(self, update: Update) -> MessageType:
         '''
         Classify a message according to the command sent by the user.
 
@@ -133,33 +133,33 @@ class TelegramBot:
 
         Returns
         -------
-            MensaggeType
+            MessageType
                 Type of command sent by the user.
         '''
         if update.message and update.message.location:
-            return MensaggeType.MENSAGGE_TYPE_LOCATION
+            return MessageType.MENSAGGE_TYPE_LOCATION
         elif (update.message and update.message.entities and
               update.message.entities[0].type == MessageEntityType.BOT_COMMAND.value):
             if TELEGRAM_BOT_HELP_COMMAND in update.message.text.upper():
-                return MensaggeType.MENSAGGE_TYPE_HELP
+                return MessageType.MENSAGGE_TYPE_HELP
             elif TELEGRAM_BOT_START_COMMAND in update.message.text.upper():
-                return MensaggeType.MENSAGGE_TYPE_START
+                return MessageType.MENSAGGE_TYPE_START
             elif TELEGRAM_BOT_PLACE_COMMAND in update.message.text.upper():
-                return MensaggeType.MENSAGGE_TYPE_PLACE
+                return MessageType.MENSAGGE_TYPE_PLACE
             else:
-                return MensaggeType.MENSAGGE_TYPE_NO_SUPPORT
+                return MessageType.MENSAGGE_TYPE_NO_SUPPORT
         else:
-            return MensaggeType.MENSAGGE_TYPE_NO_SUPPORT
+            return MessageType.MENSAGGE_TYPE_NO_SUPPORT
 
 
-    async def wait_menssage(self) -> MensaggeType:
+    async def wait_menssage(self) -> MessageType:
         '''
         This method waits for new messages to arrive and returns the type of message
         received.
 
         Returns:
         --------
-            MensaggeType:
+            MessageType:
                 An Enum representing the type of message received.
         '''
         try:
@@ -186,7 +186,7 @@ class TelegramBot:
                 break
 
         type = await self.filter_update(self.current_update)
-        if not type is  MensaggeType.MENSAGGE_TYPE_NO_SUPPORT:
+        if not type is  MessageType.MENSAGGE_TYPE_NO_SUPPORT:
             user = self.current_update.message.from_user.username
             self.logger.info(f'New message from: {user} type: {type}')
         return type
