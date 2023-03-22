@@ -58,8 +58,8 @@ Below, I have listed the steps to run the program:
     * --showstat: Show statistics at the end of the program.
 6) Finish program $ ctrl-c
 
-\(\*\) Create Telegram Token: https://core.telegram.org/bots/tutorial\
-\(\*\) Create Api WeatherStack key: https://weatherstack.com/documentation\
+\(\*\) Create Telegram Token: https://core.telegram.org/bots/tutorial \
+\(\*\) Create Api WeatherStack key: https://weatherstack.com/documentation \
 \(\*\) Create key_file.bin: $ openssl rand -base64 32 > key.bin
 
 
