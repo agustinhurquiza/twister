@@ -49,18 +49,18 @@ Also the bot support two commands more:
 ## How run
 Below, I have listed the steps to run the program:
 
-1) Create environment $ virtualenv env
-2) Active environment $ source env/bin/activate
-3) Install requirements $ pip install -r requirements.txt
-4) Save tokens(*) $ source password.sh key_file.bin <Telegram token> <Api weatherstack Token>
-5) Run program $ python main.py [flags]
+1) Create environment ```sh $ virtualenv env```
+2) Active environment ```sh $ source env/bin/activate```
+3) Install requirements ```sh $ pip install -r requirements.txt```
+4) Save tokens(*) ```sh$ source password.sh key_file.bin <Telegram token> <Api weatherstack Token>```
+5) Run program ```sh $ python main.py [flags]```
     * --nodatabase: Disable database tracking
     * --showstat: Show statistics at the end of the program.
 6) Finish program $ ctrl-c
 
 \(\*\) Create Telegram Token: https://core.telegram.org/bots/tutorial \
 \(\*\) Create Api WeatherStack key: https://weatherstack.com/documentation \
-\(\*\) Create key_file.bin: $ openssl rand -base64 32 > key.bin
+\(\*\) Create key_file.bin: ```sh $ openssl rand -base64 32 > key.bin```
 
 
 ## Statitics
