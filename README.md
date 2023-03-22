@@ -73,7 +73,7 @@ First you need enable the tracking see (How to Run).
 Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests. The files will be saved in the stat directory.
 
 <p align="center">
- <img src="https://github.com/agustinhurquiza/twister/blob/main/examples/map.png" width="450" height="320"> <img src="https://github.com/agustinhurquiza/twister/blob/main/stat/2023-03-13_statistics.png" width="450" height="320">
+ <img src="https://github.com/agustinhurquiza/twister/blob/main/examples/map.png" width="400" height="280"> <img src="https://github.com/agustinhurquiza/twister/blob/main/stat/2023-03-13_statistics.png" width="400" height="280">
 </p>
 
 ## Architecture
