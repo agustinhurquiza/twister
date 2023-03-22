@@ -1,18 +1,18 @@
 # Twister
-## _The best Telegram bot for get weather_
+## _The best Telegram bot for getting weather_
 
 ## Disclaimer
 
-This project was created for demonstrate and improvement my abilities in the differents areas like:
+This project was created for demonstrate and improvement my abilities in the different areas like:
 - Python
 - Security
 - Object-oriented programming (OOP)
 - Documentation
-- Development the news projects
+- Developing new projects
 - Git:
     * Basic commands
     * Branches
-    * Relases
+    * Releases
 - Application management
 - Data Base
 - Data Analytic
@@ -21,22 +21,22 @@ This project was created for demonstrate and improvement my abilities in the dif
 I'm not trying to create something revolutionary or useful.
 
 ## About me
-My name is [Agustin Urquiza](agustin.h.urquiza@gmail.com), I have a Bachelor in computer science obtained in FaMAF UNC. I have four years of experience in software development.
+My name is [Agustin Urquiza](agustin.h.urquiza@gmail.com), I have a Bachelor's degree in computer science obtained in FaMAF UNC. I have four years of experience in software development.
 
 
 ## Use cases and front end
 I implemented a simple [telegram bot](https://t.me/terminator_2000_bot) that can get the weather in different places around the world. It can respond to two possible commands: **Telegram location** and **/place [city]**. The bot responds to your message with a .png image (124 KB). If you share your real location, it only responds once. Here are some examples:
 
-<p align="center">
-<img src="https://github.com/agustinhurquiza/twister/blob/main/examples/1.png" width="400" height="380">  <img src="https://github.com/agustinhurquiza/twister/blob/main/examples/2.png" width="400" height="380">
-</p>
+
+![London](https://github.com/agustinhurquiza/twister/blob/main/examples/1.png)
+![Sao Pablo](https://github.com/agustinhurquiza/twister/blob/main/examples/2.png)
 
 Also the bot support two commands more:
 
 - **help:**
     > ************************* The twister Bot *************************\
     > Usage:\
-    > \* /help: Get help mensagge.\
+    > \* /help: Get help message.\
     > \* /start: Get information about this Bot.\
     > \* /place city: Get current weather in that city.\
     > \* Location: Get current weather in your location.
@@ -44,11 +44,11 @@ Also the bot support two commands more:
 - **start:**
     > ************************* The twister Bot *************************\
     > It uses to obtain the weather in the different cities of the world.\
-    > This bot may be tracked your data, username, location, lenguaje, etc.\
+    > This bot may be tracked your data, username, location, language, etc.\
     > Author: Agustin Urquiza\
     > agustin.h.urquiza@gmail.com
 
-## How run
+## How to Run
 Below, I have listed the steps to run the program:
 
 1) Create environment ``` $ virtualenv env```
@@ -65,20 +65,18 @@ Below, I have listed the steps to run the program:
 \(\*\) Create key_file.bin: ``` $ openssl rand -base64 32 > key.bin```
 
 
-## Statitics
+## Statistics
 
-First you need enable the tracking see (How run).
+First you need enable the tracking see (How to Run).
 
-Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests. The files will save in stat directory.
+Once you have pressed Ctrl-C, the Python program will proceed to calculate and display two plots - one showing the numbers of requests and clients, and another displaying a map with the locations of the requests. The files will be saved in the stat directory.
 
-
-<p align="center">
-<img src="https://github.com/agustinhurquiza/twister/blob/main/examples/map.png" width="500" height="400">  <img src="https://github.com/agustinhurquiza/twister/blob/main/stat/2023-03-13_statistics.png" width="500" height="400">
-</p>
+![map](https://github.com/agustinhurquiza/twister/blob/main/examples/map.png)
+![Statistics](https://github.com/agustinhurquiza/twister/blob/main/stat/2023-03-13_statistics.png)
 
 
 ## Architecture
-
+https://github.com/agustinhurquiza/twister/blob/main/examples/map.png
 ### MessageType
 Enum use in TelegramBot class. Representing the different kind of message available.
 
