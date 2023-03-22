@@ -50,7 +50,7 @@ Also the bot support two commands more:
 
 After you presed ctrl-c the python program calculate and show two plots, numbers of requests and clients, and a map with the requests locations.
 
-![map](https://github.com/agustinhurquiza/twister/blob/main/examples/map.png)
+![map](https://github.com/agustinhurquiza/twister/blob/documentation/examples/map.png)
 
 
 ## Architecture
