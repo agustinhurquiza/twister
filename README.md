@@ -32,19 +32,19 @@ I implemented a simple [telegram bot](https://t.me/terminator_2000_bot) that can
 Also the bot support two commands more:
 
 - **help:**
-    > ************************* The twister Bot *************************
-    > Usage:
-    > \* /help: Get help mensagge.
-    > \* /start: Get information about this Bot.
-    > \* /place city: Get current weather in that city.
-    > \* Location: Get current weather in your location.
+> ************************* The twister Bot *************************
+> Usage:
+> \* /help: Get help mensagge.
+> \* /start: Get information about this Bot.
+> \* /place city: Get current weather in that city.
+> \* Location: Get current weather in your location.
 
 - **start:**
-    > ************************* The twister Bot *************************
-    > It uses to obtain the weather in the different cities of the world.
-    > This bot may be tracked your data, username, location, lenguaje, etc.
-    > Author: Agustin Urquiza
-    > agustin.h.urquiza@gmail.com
+> ************************* The twister Bot *************************
+> It uses to obtain the weather in the different cities of the world.
+> This bot may be tracked your data, username, location, lenguaje, etc.
+> Author: Agustin Urquiza
+> agustin.h.urquiza@gmail.com
 
 ## Statitics
 
