@@ -21,7 +21,7 @@ This project was created for demonstrate and improvement my abilities in the dif
 I'm not trying to create something revolutionary or useful.
 
 ## About me
-My name is [Agustin Urquiza](agustin.h.urquiza@gmail.com), I have a Bachelor's degree in computer science obtained in FaMAF UNC. I have four years of experience in software development.
+My name is [Agustin Urquiza](agustin.h.urquiza@gmail.com), I have a master's degree in computer science obtained in FaMAF UNC. I have four years of experience in software development.
 
 
 ## Use cases and front end
